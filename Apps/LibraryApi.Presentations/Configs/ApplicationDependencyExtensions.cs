@@ -4,6 +4,8 @@ using LibraryApi.Domains.Models;
 using LibraryApi.Infrastructure.Adapters;
 using LibraryApi.Infrastructure.Repositories;
 using LibraryApi.Domains.Repositories;
+using LibraryApi.Infrastructure.Shared;
+using LibraryApi.Application.Usecases;
 namespace LibraryApi.Presentation.Configs;
 /// <summary>
 /// 依存関係(DI)の設定
@@ -61,6 +63,8 @@ public static class ApplicationDependencyExtensions
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         // ドメインオブジェクト:商品のCRUD操作Repositoryインターフェイス
         services.AddScoped<IBookRepository, BookRepository>();
+        // Unit of Workパターンを利用したトランザクション制御インターフェイス
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         return services;
 
     }
