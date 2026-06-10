@@ -11,7 +11,7 @@ namespace LibraryApi.Application.Tests.Usecase.Products.Interactors;
 /// </summary>
 [TestClass]
 [TestCategory("Usecase/Products/Interactor")]
-public class RegisterProductUsecaseTests
+public class RegisterBookUsecaseTests
 {
     // MSTestテスト用ログ出力ハンドル
     private static TestContext? _testContext;
