@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using LibraryApi.Infrastructure.Contexts;
 using LibraryApi.Domains.Models;
 using LibraryApi.Infrastructure.Adapters;
+using LibraryApi.Infrastructure.Repositories;
+using LibraryApi.Domains.Repositories;
 namespace LibraryApi.Presentation.Configs;
 /// <summary>
 /// 依存関係(DI)の設定
@@ -55,6 +57,10 @@ public static class ApplicationDependencyExtensions
         services.AddScoped<BookEntityAdapter>();
         // 商品、商品カテゴリ、商品在庫オブジェクトの相互変換Factoryクラス
         services.AddScoped<BookFactory>();
+        // ドメインオブジェクト:商品カテゴリのCRUD操作Repositoryインターフェイス
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        // ドメインオブジェクト:商品のCRUD操作Repositoryインターフェイス
+        services.AddScoped<IBookRepository, BookRepository>();
         return services;
 
     }

@@ -55,11 +55,11 @@ public class AppDbContext : DbContext
                 .HasConstraintName("product_stock_ibfk_product")
                 .OnDelete(DeleteBehavior.Cascade);
             // C#のstring ⇔ PostgreSQLのuuidを自動変換する
-            e.Property(b => b.BookUuid)
-             .HasConversion(
-                 v => Guid.Parse(v),
-                 v => v.ToString()
-            );
+            e.Property(b => b.BookUuid).HasMaxLength(36);
+            // .HasConversion(
+                // v => Guid.Parse(v),
+                // v => v.ToString()
+           // );
         });
         // 商品カテゴリの動作設定
         modelBuilder.Entity<CategoryEntity>(e =>
@@ -70,11 +70,11 @@ public class AppDbContext : DbContext
             e.Property(c => c.Name).HasMaxLength(20);
 
             // C#のstring ⇔ PostgreSQLのuuidを自動変換する
-            e.Property(c => c.CategoryUuid)
-             .HasConversion(
-                 v => Guid.Parse(v),  // C#(string)をDB(uuid)に書き込む時の処理
-                 v => v.ToString()    // DB(uuid)をC#(string)に読み込む時の処理
-            );
+            e.Property(c => c.CategoryUuid).HasMaxLength(36);
+             //.HasConversion(
+                // v => Guid.Parse(v),  // C#(string)をDB(uuid)に書き込む時の処理
+                // v => v.ToString()    // DB(uuid)をC#(string)に読み込む時の処理
+          //  );
         });
         // 商品在庫の動作設定
         modelBuilder.Entity<BookStockEntity>(e =>
@@ -84,11 +84,11 @@ public class AppDbContext : DbContext
             // 商品Id(UUID)はユニーク
             e.HasIndex(s => s.BookId).IsUnique();
             // C#のstring ⇔ PostgreSQLのuuidを自動変換する
-            e.Property(s => s.StockUuid)
-             .HasConversion(
-                 v => Guid.Parse(v),
-                 v => v.ToString()
-            );
+            e.Property(s => s.StockUuid).HasMaxLength(36);
+             //.HasConversion(
+               //  v => Guid.Parse(v),
+               //  v => v.ToString()
+            //);
         });
     }
 }

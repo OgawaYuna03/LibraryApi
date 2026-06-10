@@ -25,7 +25,7 @@ public interface IBookRepository
     /// </summary>
     /// <param name="id">商品Id</param>
     /// <returns>Product または null</returns>
-    Task<Book?> SelectByIdWithBookStockAndProductCategoryAsync(string id);
+    Task<Book?> SelectByIdWithBookStockAndCategoryAsync(string id);
 
     /// <summary>
     /// 指定されたキーワードで商品を部分一致検索して商品と在庫、商品カテゴリを取得する
@@ -46,5 +46,5 @@ public interface IBookRepository
     /// </summary>
     /// <param name="title">商品名</param>
     /// <returns>true:存在する false:存在しない</returns> 
-    Task<bool> ExistsByNameAsync(string title);
+    Task<bool> ExistsByTitleAsync(string title);
 }
