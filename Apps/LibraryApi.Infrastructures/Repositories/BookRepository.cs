@@ -26,7 +26,7 @@ public class BookRepository : IBookRepository
     /// <summary>
     /// 商品を永続化する
     /// </summary>
-    /// <param name="product">永続化する商品</param>
+    /// <param name="book">永続化する商品</param>
     /// <returns>なし</returns>
     public async Task CreateAsync(Book book)
     {
@@ -39,7 +39,7 @@ public class BookRepository : IBookRepository
             {
                 throw new Exception($"Id:{book.Category!.CategoryUuid}の商品カテゴリは存在しません。");
             }
-            // ProductをProductEntityに変換する
+            // BookをBookEntityに変換する
             var entity = await _factory.ConvertAsync(book);
             // 商品カテゴリの外部キーを設定する
             entity.Category = null;
@@ -64,7 +64,7 @@ public class BookRepository : IBookRepository
     /// 指定された商品Idの商品と在庫、商品カテゴリを返す
     /// </summary>
     /// <param name="id">商品Id</param>
-    /// <returns>Product または null</returns>
+    /// <returns>Book または null</returns>
     public async Task<Book?> SelectByIdWithBookStockAndCategoryAsync(string id)
     {
         try
@@ -79,9 +79,9 @@ public class BookRepository : IBookRepository
             {
                 return null; // 該当商品が存在しない場合はnullを返す
             }
-            // ProductEntityの集約からProductの集約に復元する
-            var product = await _factory.RestoreAsync(entity);
-            return product;
+            // BookEntityの集約からBookの集約に復元する
+            var book = await _factory.RestoreAsync(entity);
+            return book;
         }
         catch (DomainException)
         {
@@ -99,7 +99,7 @@ public class BookRepository : IBookRepository
     /// </summary>
     /// <param name="keyword">検索キーワード</param>
     /// <returns>Prodyctのリスト</returns>
-    public async Task<List<Book>> SelectByNameLikeWithBookStockAndCategoryAsync(string keyword)
+    public async Task<List<Book>> SelectByTitleLikeWithBookStockAndCategoryAsync(string keyword)
     {
         try
         {
@@ -110,7 +110,7 @@ public class BookRepository : IBookRepository
                 .Include(b => b.Category)
                 .Where(b => EF.Functions.Like(b.Title, $"%{keyword}%"))
                 .ToListAsync();
-            // List<ProductEntity>からList<Product>を復元する
+            // List<BookEntity>からList<Book>を復元する
             var books = await _factory.RestoreAsync(entities);
             return books;
         }

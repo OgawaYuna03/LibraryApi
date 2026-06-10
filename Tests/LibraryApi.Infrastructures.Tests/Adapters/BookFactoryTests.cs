@@ -73,9 +73,9 @@ public class BookFactoryTests
     {
         // 変換対象を生成する
         var uuid = Guid.NewGuid().ToString();
-        var product = new Book(uuid, "ぐりとぐら", "中川李枝子");
+        var book = new Book(uuid, "ぐりとぐら", "中川李枝子");
         // BookをBookEntityに変換する
-        var entity = await _factory.ConvertAsync(product);
+        var entity = await _factory.ConvertAsync(book);
         // nullでないことを検証する
         Assert.IsNotNull(entity);
         // 識別Idが一致することを検証する
@@ -261,7 +261,7 @@ public async Task RestireAsync_Should_MapPropertiesCorrectly_Case3()
         }
     };
 
-    // ProductEntityからproductを復元する
+    // ProductEntityからbookを復元する
     var book = await _factory.RestoreAsync(bookEntity);
 
     // nullでないことを検証する

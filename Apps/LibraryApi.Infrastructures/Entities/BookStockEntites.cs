@@ -27,6 +27,6 @@ public class BookStockEntity
     public int BookId { get; set; }
 
     // 逆向きのナビゲーション
-    [ForeignKey("ProductId")]
+    [ForeignKey("BookId")]
     public BookEntity? Book { get; set; }
 }

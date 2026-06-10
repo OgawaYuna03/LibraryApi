@@ -32,7 +32,7 @@ public interface IBookRepository
     /// </summary>
     /// <param name="keyword">検索キーワード</param>
     /// <returns>Prodyctのリスト</returns>
-    Task<List<Book>> SelectByNameLikeWithBookStockAndCategoryAsync(string keyword);
+    Task<List<Book>> SelectByTitleLikeWithBookStockAndCategoryAsync(string keyword);
 
     /// <summary>
     /// 商品を削除する

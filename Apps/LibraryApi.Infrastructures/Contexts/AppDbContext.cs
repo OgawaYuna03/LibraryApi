@@ -5,10 +5,10 @@ namespace LibraryApi.Infrastructure.Contexts;
 /// <summary>
 /// アプリケーション用データベースコンテキスト（PostgreSQL対応）
 /// 方針：
-/// - Product : ProductCategory = N:1（カテゴリ削除で商品も削除：Cascade）
-/// - Product : ProductStock    = 1:1（商品削除で在庫も削除：Cascade）
+/// - Book : BookCategory = N:1（カテゴリ削除で商品も削除：Cascade）
+/// - Book : BookStock    = 1:1（商品削除で在庫も削除：Cascade）
 /// - UUIDはドメイン層で生成して保存（DB側での自動生成はしない）
-/// - 1:1は product_stock.product_id の一意制約で担保
+/// - 1:1は book_stock.book_id の一意制約で担保
 /// </summary>
 public class AppDbContext : DbContext
 {
@@ -46,13 +46,13 @@ public class AppDbContext : DbContext
             e.HasOne(b => b.Category)
                 .WithMany(b => b.Books!)
                 .HasForeignKey(b => b.CategoryId)
-                .HasConstraintName("product_ibfk_category")
+                .HasConstraintName("book_ibfk_category")
                 .OnDelete(DeleteBehavior.Cascade);
             // 商品と商品在庫のカーディナリティ(1:1) 商品削除時に商品在庫も削除
             e.HasOne(b => b.BookStock)
                 .WithOne(s => s.Book!)
                 .HasForeignKey<BookStockEntity>(s => s.BookId)
-                .HasConstraintName("product_stock_ibfk_product")
+                .HasConstraintName("book_stock_ibfk_book")
                 .OnDelete(DeleteBehavior.Cascade);
             // C#のstring ⇔ PostgreSQLのuuidを自動変換する
             e.Property(b => b.BookUuid).HasMaxLength(36);

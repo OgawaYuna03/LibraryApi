@@ -32,11 +32,11 @@ public class BookFactory
     /// <summary>
     /// 商品、商品カテゴリ、商品在庫の集約関係を構築したEntityを生成して返す
     /// </summary>
-    /// <param name="domain">ルートドメインオブジェクト:Product</param>
-    /// <returns>集約関係を構築したProductEntity</returns>
+    /// <param name="domain">ルートドメインオブジェクト:book</param>
+    /// <returns>集約関係を構築したbookEntity</returns>
     public async Task<BookEntity> ConvertAsync(Book domain)
     {
-        // ProductからProductEntityを生成する
+        // bookからbookEntityを生成する
         var entity = await _bookEntityAdapter.ConvertAsync(domain);
         // 商品カテゴリ、在庫が存在しない場合はリターンする
         if (domain.Category is null && domain.BookStock is null)
@@ -63,8 +63,8 @@ public class BookFactory
     /// <summary>
     /// 商品、商品カテゴリ、商品在庫の集約関係を構築したEntityリストを生成して返す
     /// </summary>
-    /// <param name="domains">ルートドメインオブジェクトのリスト:List<Product></param>
-    /// <returns>集約関係を構築したProductEntityのリスト</returns>
+    /// <param name="domains">ルートドメインオブジェクトのリスト:List<book></param>
+    /// <returns>集約関係を構築したbookEntityのリスト</returns>
     public async Task<List<BookEntity>> ConvertAsync(List<Book> domains)
     {
         // BookEntityのリストを生成する
@@ -78,48 +78,48 @@ public class BookFactory
     }
 
     /// <summary>
-    /// ProductEntityの集約関係からドメインオブジェクト:Productを復元する
+    /// bookEntityの集約関係からドメインオブジェクト:bookを復元する
     /// </summary>
-    /// <param name="target">ProductEntity</param>
-    /// <returns>復元したProduct</returns>
+    /// <param name="target">bookEntity</param>
+    /// <returns>復元したbook</returns>
     public async Task<Book> RestoreAsync(BookEntity target)
     {
-        // ProductEntityからProductを復元する
-        var product = await _bookEntityAdapter.RestoreAsync(target);
+        // bookEntityからbookを復元する
+        var book = await _bookEntityAdapter.RestoreAsync(target);
         // 商品カテゴリ、商品在庫が存在しない場合はリターンする   
         if (target.Category is null && target.BookStock is null)
         {
-            return product;
+            return book;
         }
         // 商品カテゴリが存在する
         if (target.Category != null)
         {
             // CategoryEntityからCategoryを復元してプロパティに設定する
-            product.ChangeCategory(
+            book.ChangeCategory(
                 await _categoryEntityAdapter.RestoreAsync(target.Category));
         }
         // 商品在庫が存在する
         if (target.BookStock != null)
         {
-            // ProductStockEntityからProductStockを復元してプロパティに設定する
-            product.ChangeStock(
+            // bookStockEntityからbookStockを復元してプロパティに設定する
+            book.ChangeStock(
                 await _bookStockEntityAdapter.RestoreAsync(target.BookStock));
         }
-        return product;
+        return book;
     }
 
     /// <summary>
     /// 商品、商品カテゴリ、商品アジ子の集約関係を構築したEntityリストからドメインオブジェクトのリストを復元する
     /// </summary>
-    /// <param name="targets">List<ProductEntity></param>
-    /// <returns>Product<List></returns>
+    /// <param name="targets">List<bookEntity></param>
+    /// <returns>book<List></returns>
     public async Task<List<Book>> RestoreAsync(List<BookEntity> targets)
     {
-        // Productのリストを生成する
+        // bookのリストを生成する
         var books = new List<Book>();
         foreach (var target in targets)
         {
-            // ProductEntityを取り出しProductを復元してリストに追加する
+            // bookEntityを取り出しbookを復元してリストに追加する
             books.Add(await RestoreAsync(target));
         }
         return books;

@@ -16,7 +16,7 @@ public class CategoryRepository : ICategoryRepository
     /// コンストラクタ 
     /// </summary>
     /// <param name="context">アプリケーション用データベースコンテキスト</param>
-    /// <param name="adapter">ドメインオブジェクト:ProductCategoryとProductCategoryEntityの相互変換クラス</param> 
+    /// <param name="adapter">ドメインオブジェクト:BookCategoryとBookCategoryEntityの相互変換クラス</param> 
     public CategoryRepository(
         AppDbContext context,
         CategoryEntityAdapter adapter)
@@ -28,7 +28,7 @@ public class CategoryRepository : ICategoryRepository
     /// <summary>
     /// すべての商品カテゴリを取得する
     /// </summary>
-    /// <returns>ProductCategoryのリスト</returns>
+    /// <returns>BookCategoryのリスト</returns>
     public async Task<List<Category>> SelectAllAsync()
     {
         try
@@ -60,7 +60,7 @@ public class CategoryRepository : ICategoryRepository
     /// 指定された商品カテゴリIdの商品カテゴリを取得する
     /// </summary>
     /// <param name="id">商品カテゴリId</param>
-    /// <returns>ProductCategory または null</returns>
+    /// <returns>BookCategory または null</returns>
     public async Task<Category?> SelectByIdAsync(string id)
     {
         try
@@ -72,7 +72,7 @@ public class CategoryRepository : ICategoryRepository
             {
                 return null; // 存在しない場合はnullを返す
             }
-            // ProductCategoryEntityからProductCategoryを復元する
+            // BookCategoryEntityからBookCategoryを復元する
             var category = await _adapter.RestoreAsync(entity);
             return category;
         }

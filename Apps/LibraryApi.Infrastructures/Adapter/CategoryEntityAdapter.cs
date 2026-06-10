@@ -28,15 +28,15 @@ IConverter<Category, CategoryEntity>, IRestorer<Category, CategoryEntity>
     }
 
     /// <summary>
-    /// ProductCategoryEntityからドメインオブジェクト:ProductCategoryを復元する
+    /// BookCategoryEntityからドメインオブジェクト:BookCategoryを復元する
     /// </summary>
-    /// <param name="target">>EFCore:ProductCategoryEntity</param>
-    /// <returns>ドメインオブジェクト:ProductCategory</returns>
+    /// <param name="target">>EFCore:BookCategoryEntity</param>
+    /// <returns>ドメインオブジェクト:BookCategory</returns>
     public Task<Category> RestoreAsync(CategoryEntity target)
     {
         // 引数targetがnullの場合
         _ = target ?? throw new InternalException("引数targetがnullです。");
-        // ProductCategoryEntityからドメインオブジェクト:ProductCategoryを復元する
+        // BookCategoryEntityからドメインオブジェクト:BookCategoryを復元する
         var domain = new Category(target.CategoryUuid, target.Name);
         return Task.FromResult(domain);
     }
