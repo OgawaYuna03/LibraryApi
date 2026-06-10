@@ -53,6 +53,8 @@ public static class ApplicationDependencyExtensions
         services.AddScoped<CategoryEntityAdapter>();
         // ドメインオブジェクト:BookとBookEntityの相互変換クラス
         services.AddScoped<BookEntityAdapter>();
+        // 商品、商品カテゴリ、商品在庫オブジェクトの相互変換Factoryクラス
+        services.AddScoped<BookFactory>();
         return services;
 
     }

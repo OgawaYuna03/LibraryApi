@@ -37,7 +37,7 @@ IConverter<Book, BookEntity>, IRestorer<Book, BookEntity>
     {
         // 引数targetがnullの場合
         _ = target ?? throw new InternalException("引数targetがnullです。");
-        // ProductEntityからドメインオブジェクト:Productを復元する
+        // BookEntityからドメインオブジェクト:Bookを復元する
         var domain = new Book(target.BookUuid, target.Title, target.Author);
         return Task.FromResult(domain);
     }
