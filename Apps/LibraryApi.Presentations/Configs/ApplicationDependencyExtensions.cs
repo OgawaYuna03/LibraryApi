@@ -6,6 +6,8 @@ using LibraryApi.Infrastructure.Repositories;
 using LibraryApi.Domains.Repositories;
 using LibraryApi.Infrastructure.Shared;
 using LibraryApi.Application.Usecases;
+using LibraryApi.Application.Usecases.Products.Interactors;
+using LibraryApi.Application.Usecases.Products.Interfaces;
 namespace LibraryApi.Presentation.Configs;
 /// <summary>
 /// 依存関係(DI)の設定
@@ -78,6 +80,9 @@ public static class ApplicationDependencyExtensions
     private static IServiceCollection AddApplicationLayerDependencies(
         this IServiceCollection services, IConfiguration config)
     {
+         //ユースケース：[新商品を登録する]を実現するインターフェース
+        services.AddScoped<IRegisterBookUsecase, RegisterBookUsecase>();
+    
         return services;
     }
 
