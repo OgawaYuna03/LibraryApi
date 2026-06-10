@@ -1,4 +1,4 @@
-using LibraryApi.Applications.Exceptions;
+using LibraryApi.Domains.Exceptions;
 namespace LibraryApi.Domains.Models;
 /// <summary>
 /// 蔵書を表すドメインオブジェクト

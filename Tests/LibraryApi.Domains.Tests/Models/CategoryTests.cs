@@ -1,5 +1,5 @@
 using LibraryApi.Domains.Models;
-using LibraryApi.Applications.Exceptions;
+using LibraryApi.Domains.Exceptions;
 namespace LibraryApi.Application.Applications.Tests.Domains.Models;
 /// <summary>
 /// ProductCategoryクラスの単体テストドライバ

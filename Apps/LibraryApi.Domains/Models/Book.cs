@@ -1,5 +1,5 @@
 using System.Security.Authentication;
-using LibraryApi.Applications.Exceptions;
+using LibraryApi.Domains.Exceptions;
 namespace LibraryApi.Domains.Models;
 /// <summary>
 /// 商品を表すドメインオブジェクト(集約ルート)

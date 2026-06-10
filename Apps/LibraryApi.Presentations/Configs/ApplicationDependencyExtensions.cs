@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using LibraryApi.Infrastructure.Contexts;
+using LibraryApi.Domains.Models;
+using LibraryApi.Infrastructure.Adapters;
 namespace LibraryApi.Presentation.Configs;
 /// <summary>
 /// 依存関係(DI)の設定
@@ -35,7 +37,7 @@ public static class ApplicationDependencyExtensions
     private static IServiceCollection AddInfrastructureDependencies(
         this IServiceCollection services, IConfiguration config)
     {
-          // PostgreSQLの接続文字列を設定ファイルから取得する
+        // PostgreSQLの接続文字列を設定ファイルから取得する
         var connectstr = config.GetConnectionString("PostgreSQLConnection");
         // AddDbContextをサービスコレクションに登録する
         services.AddDbContext<AppDbContext>(options =>
@@ -45,8 +47,14 @@ public static class ApplicationDependencyExtensions
             // PostgreSQLのデータベースを指定された接続文字列を使用して構成
             options.UseNpgsql(connectstr);
         });
+        // ドメインオブジェクト:BookStockとBookStockEntityの相互変換クラス
+        services.AddScoped<BookStockEntityAdapter>();
+        // ドメインオブジェクト:CategoryとCategoryEntityの相互変換クラス
+        services.AddScoped<CategoryEntityAdapter>();
+        // ドメインオブジェクト:BookとBookEntityの相互変換クラス
+        services.AddScoped<BookEntityAdapter>();
         return services;
-        
+
     }
 
     /// <summary>
