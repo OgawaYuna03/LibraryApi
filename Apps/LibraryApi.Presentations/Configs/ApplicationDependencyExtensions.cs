@@ -8,6 +8,7 @@ using LibraryApi.Infrastructure.Shared;
 using LibraryApi.Application.Usecases;
 using LibraryApi.Application.Usecases.Products.Interactors;
 using LibraryApi.Application.Usecases.Products.Interfaces;
+using LibraryApi.Presentation.Adapters;
 namespace LibraryApi.Presentation.Configs;
 /// <summary>
 /// 依存関係(DI)の設定
@@ -80,11 +81,11 @@ public static class ApplicationDependencyExtensions
     private static IServiceCollection AddApplicationLayerDependencies(
         this IServiceCollection services, IConfiguration config)
     {
-         //ユースケース：[新商品を登録する]を実現するインターフェース
+        //ユースケース：[新商品を登録する]を実現するインターフェース
         services.AddScoped<IRegisterBookUsecase, RegisterBookUsecase>();
         //ユースケース[商品を変更する]を実現するインターフェース
         services.AddScoped<IUpdateBookUsecase, UpdateBookUsecase>();
-      //ユースケース[商品をキーワード検索する]を実現するインターフェース
+        //ユースケース[商品をキーワード検索する]を実現するインターフェース
         services.AddScoped<ISearchBookByKeywordUsecase, SearchBookByKeywordUsecase>();
         // UpdateProductViewModelからドメインオブジェクト:Productへ変換するアダプタ
         return services;
@@ -99,8 +100,10 @@ public static class ApplicationDependencyExtensions
     private static IServiceCollection AddPresentationLayerDependencies(
         this IServiceCollection services, IConfiguration config)
     {
-         // コントローラーをサービスコレクションに登録する
+        // コントローラーをサービスコレクションに登録する
         services.AddControllers();
+        // RegisterProductViewModelからドメインオブジェクト:Productへ変換するアダプタ
+        services.AddScoped<RegisterBookViewModelAdapter>();
         return services;
     }
 
