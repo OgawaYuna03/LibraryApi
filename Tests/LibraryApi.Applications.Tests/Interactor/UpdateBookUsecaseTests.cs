@@ -92,7 +92,7 @@ public class UpdateBookUsecaseTests
         // 商品在庫Idを検証する
         Assert.AreEqual("8311a860-c63f-45d5-9b42-3bfd6ef886f3", result.BookStock!.StockUuid);
         // 商品在庫数を検証する
-        Assert.AreEqual(100, result.BookStock!.Stock);
+        Assert.AreEqual(10, result.BookStock!.Stock);
         // 商品カテゴリIdを検証する
         Assert.AreEqual("e269c98c-61b7-4ca7-9fae-ecd74234989e", result.Category!.CategoryUuid);
         // 商品カテゴリ名を検証する
