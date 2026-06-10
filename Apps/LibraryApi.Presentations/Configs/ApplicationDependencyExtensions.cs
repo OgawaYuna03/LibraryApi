@@ -84,7 +84,9 @@ public static class ApplicationDependencyExtensions
         services.AddScoped<IRegisterBookUsecase, RegisterBookUsecase>();
         //ユースケース[商品を変更する]を実現するインターフェース
         services.AddScoped<IUpdateBookUsecase, UpdateBookUsecase>();
-    
+      //ユースケース[商品をキーワード検索する]を実現するインターフェース
+        services.AddScoped<ISearchBookByKeywordUsecase, SearchBookByKeywordUsecase>();
+        // UpdateProductViewModelからドメインオブジェクト:Productへ変換するアダプタ
         return services;
     }
 
