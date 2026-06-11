@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LibraryApi.Presentations</name>
+    </assembly>
+    <members>
+        <member name="T:LibraryApi.Presentation.Adapters.RegisterBookViewModelAdapter">
+            <summary>
+            RegisterBookViewModelからドメインオブジェクト:Bookへ変換するアダプタ
+            </summary>
+        </member>
+        <member name="M:LibraryApi.Presentation.Adapters.RegisterBookViewModelAdapter.RestoreAsync(LibraryApi.Presentation.ViewModels.RegisterBookViewModel)">
+            <summary>
+            RegisterBookViewModelからドメインオブジェクト:Bookを復元する
+            </summary>
+            <param name="target">ユースケース:[新商品を登録する]を実現するViewModel</param>
+            <returns></returns>
+        </member>
+        <member name="T:LibraryApi.Presentation.Configs.ApplicationDependencyExtensions">
+            <summary>
+            依存関係(DI)の設定
+            インフラストラクチャ層、アプリケーション層、プレゼンテーション層
+            をまとめて追加する拡張クラス
+            </summary>
+        </member>
+        <member name="M:LibraryApi.Presentation.Configs.ApplicationDependencyExtensions.AddApplicationDependencies(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            アプリ全体の依存関係を一括追加する拡張メソッド
+            </summary>
+            <param name="services">サービスコレクション</param>
+            <param name="config">構成情報</param>
+            <returns>IServiceCollection(チェーン可能)</returns>
+        </member>
+        <member name="M:LibraryApi.Presentation.Configs.ApplicationDependencyExtensions.AddInfrastructureDependencies(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            インフラストラクチャ層の依存関係を追加
+            </summary>
+            <param name="services">依存関係注入(DI)のサービスコレクション</param>
+            <param name="config">アプリケーションの設定情報を管理</param>
+            <returns></returns>
+        </member>
+        <member name="M:LibraryApi.Presentation.Configs.ApplicationDependencyExtensions.AddApplicationLayerDependencies(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            アプリケーション層の依存関係を追加
+            </summary>
+            <param name="services">依存関係注入(DI)のサービスコレクション</param>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LibraryApi.Presentation.Configs.ApplicationDependencyExtensions.AddPresentationLayerDependencies(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            プレゼンテーション層の依存関係を追加
+            </summary>
+            <param name="services">依存関係注入(DI)のサービスコレクション</param>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LibraryApi.Presentation.Configs.ApplicationDependencyExtensions.BuildAppProvider(Microsoft.Extensions.Configuration.IConfiguration,System.Action{Microsoft.Extensions.DependencyInjection.IServiceCollection},System.Action{Microsoft.Extensions.Logging.ILoggingBuilder})">
+            <summary>
+            テストプロジェクトにServiceProviderを提供するヘルパメソッド
+            </summary>
+            <param name="config"></param>
+            <param name="configureServices"></param>
+            <param name="configureLogging"></param>
+            <returns></returns>
+        </member>
+        <member name="T:LibraryApi.Presentation.Controllers.SearchBookByKeywordController">
+            <summary>
+            ユースケース:[書籍をキーワード検索する]を実現するコントローラ
+            </summary>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.SearchBookByKeywordController.#ctor(LibraryApi.Application.Usecases.Products.Interfaces.ISearchBookByKeywordUsecase)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="usecase">ユースケース:[商品をキーワード検索する]を実現するインターフェイス</param>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.SearchBookByKeywordController.Search(System.String)">
+            <summary>
+            キーワードで商品を検索する
+            </summary>
+            <param name="keyword">検索キーワード</param>
+            <returns>検索結果の商品一覧</returns>
+        </member>
+        <member name="T:LibraryApi.Presentation.ViewModels.RegisterBookViewModel">
+            <summary>
+            ユースケース:[新商品を登録する]を実現するViewModel
+            </summary>
+        </member>
+    </members>
+</doc>

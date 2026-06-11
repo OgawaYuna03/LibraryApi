@@ -135,3 +135,4 @@
 /home/fullness/CS_Training/LibraryApi/Tests/LibraryApi.Infrastructures.Tests/bin/Debug/net8.0/LibraryApi.Applications.pdb
 /home/fullness/CS_Training/LibraryApi/Tests/LibraryApi.Infrastructures.Tests/bin/Debug/net8.0/LibraryApi.Domains.pdb
 /home/fullness/CS_Training/LibraryApi/Tests/LibraryApi.Infrastructures.Tests/bin/Debug/net8.0/LibraryApi.Infrastructures.pdb
+/home/fullness/CS_Training/LibraryApi/Tests/LibraryApi.Infrastructures.Tests/bin/Debug/net8.0/Swashbuckle.AspNetCore.Annotations.dll
