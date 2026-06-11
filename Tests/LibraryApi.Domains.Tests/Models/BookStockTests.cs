@@ -16,9 +16,9 @@ public class BookStockTests
         var stock = 10;
         // インスタンスを生成する
         var bookStock = new BookStock(uuid, stock);
-        // 商品在庫Idを検証する
+        // 図書在庫Idを検証する
         Assert.AreEqual(uuid, bookStock.StockUuid);
-        // 商品在庫数を検証する
+        // 図書在庫数を検証する
         Assert.AreEqual(stock, bookStock.Stock);
     }
 
@@ -29,9 +29,9 @@ public class BookStockTests
         var stock = 5;
         // インスタンスを生成する
         var bookStock = new BookStock(stock);
-        //  商品在庫IdがUUID形式かどうかを検証する
+        //  図書在庫IdがUUID形式かどうかを検証する
         Assert.IsTrue(Guid.TryParse(bookStock.StockUuid, out _));
-        // 商品在庫数を検証する
+        // 図書在庫数を検証する
         Assert.AreEqual(stock, bookStock.Stock);
     }
 

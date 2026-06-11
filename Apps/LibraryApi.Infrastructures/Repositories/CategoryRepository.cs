@@ -6,7 +6,7 @@ using LibraryApi.Infrastructure.Adapters;
 using LibraryApi.Infrastructure.Contexts;
 namespace LibraryApi.Infrastructure.Repositories;
 /// <summary>
-///  ドメインオブジェクト:商品カテゴリのCRUD操作インターフェイスの実装
+///  ドメインオブジェクト:図書カテゴリのCRUD操作インターフェイスの実装
 /// </summary>
 public class CategoryRepository : ICategoryRepository
 {
@@ -26,14 +26,14 @@ public class CategoryRepository : ICategoryRepository
     }
 
     /// <summary>
-    /// すべての商品カテゴリを取得する
+    /// すべての図書カテゴリを取得する
     /// </summary>
     /// <returns>BookCategoryのリスト</returns>
     public async Task<List<Category>> SelectAllAsync()
     {
         try
         {
-            // すべての商品カテゴリを取得する
+            // すべての図書カテゴリを取得する
             var entities = await _context.Categories
                 .AsNoTracking().ToListAsync();
             // Categoryのリストを生成する
@@ -57,15 +57,15 @@ public class CategoryRepository : ICategoryRepository
     }
 
     /// <summary>
-    /// 指定された商品カテゴリIdの商品カテゴリを取得する
+    /// 指定された図書カテゴリIdの図書カテゴリを取得する
     /// </summary>
-    /// <param name="id">商品カテゴリId</param>
+    /// <param name="id">図書カテゴリId</param>
     /// <returns>BookCategory または null</returns>
     public async Task<Category?> SelectByIdAsync(string id)
     {
         try
         {
-            // 引数のUUIDで商品カテゴリを取得する
+            // 引数のUUIDで図書カテゴリを取得する
             var entity = await _context.Categories
                 .SingleOrDefaultAsync(c => c.CategoryUuid == id);
             if (entity is null)

@@ -1,39 +1,39 @@
 using LibraryApi.Domains.Models;
 namespace  LibraryApi.Application.Usecases.Products.Interfaces;
 /// <summary>
-/// ユースケース:[新商品を登録する]を実現するインターフェイス
+/// ユースケース:[新図書を登録する]を実現するインターフェイス
 /// </summary>
 public interface IRegisterBookUsecase {
 
     /// <summary>
-    /// すべての商品カテゴリを取得する
+    /// すべての図書カテゴリを取得する
     /// クライアント側の[入力画面]で利用するプルダウンを作成するため
     /// </summary>
     /// <returns>Categoryのリスト</returns>
     Task<List<Category>> GetCategoriesAsync();
 
     /// <summary>
-    /// 指定された商品カテゴリIdの商品カテゴリを取得する
+    /// 指定された図書カテゴリIdの図書カテゴリを取得する
     /// クライアント側の[確認画面]で利用するため
     /// </summary>
-    /// <param name="id">商品カテゴリId</param>
-    /// <returns>該当商品カテゴリ</returns>
+    /// <param name="id">図書カテゴリId</param>
+    /// <returns>該当図書カテゴリ</returns>
     /// <exception cref="NotFoundException">該当データが存在しない場合にスローされる</exception>
     Task<Category> GetCategoryByIdAsync(string id);
 
     /// <summary>
-    /// 指定ざれた商品の存在有無を調べる
+    /// 指定ざれた図書の存在有無を調べる
     /// </summary>
-    /// <param name="bookName">商品目</param>
+    /// <param name="bookName">図書目</param>
     /// <returns>なし</returns>
-    /// <exception cref="ExistsException">同一商品名が存在する場合にスローされる</exception>
+    /// <exception cref="ExistsException">同一図書名が存在する場合にスローされる</exception>
     Task ExistsByTitleAsync(string bookName);
 
     /// <summary>
-    /// 新商品を登録する
+    /// 新図書を登録する
     /// </summary>
-    /// <param name="product">登録対象商品</param>
+    /// <param name="product">登録対象図書</param>
     /// <returns>なし</returns>
-    /// <exception cref="NotFoundException">商品カテゴリが存在しない場合にスローされる</exception>
+    /// <exception cref="NotFoundException">図書カテゴリが存在しない場合にスローされる</exception>
     Task RegisterBookAsync(Book book);
 }

@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LibraryApi.Presentations</name>
+    </assembly>
+    <members>
+        <member name="T:LibraryApi.Presentation.Adapters.RegisterBookViewModelAdapter">
+            <summary>
+            RegisterBookViewModelからドメインオブジェクト:Bookへ変換するアダプタ
+            </summary>
+        </member>
+        <member name="M:LibraryApi.Presentation.Adapters.RegisterBookViewModelAdapter.RestoreAsync(LibraryApi.Presentation.ViewModels.RegisterBookViewModel)">
+            <summary>
+            RegisterBookViewModelからドメインオブジェクト:Bookを復元する
+            </summary>
+            <param name="target">ユースケース:[新図書を登録する]を実現するViewModel</param>
+            <returns></returns>
+        </member>
+        <member name="T:LibraryApi.Presentation.Adapters.UpdateBookViewModelAdapter">
+            <summary>
+            UpdateBookViewModelからドメインオブジェクト:Bookへ変換するアダプタ
+            </summary>
+        </member>
+        <member name="M:LibraryApi.Presentation.Adapters.UpdateBookViewModelAdapter.RestoreAsync(LibraryApi.Presentation.ViewModels.UpdateBookViewModel)">
+            <summary>
+            UpdateBookViewModelからドメインオブジェクト:Bookを復元する
+            </summary>
+            <param name="target">ユースケース:[図書を変更する]を実現するViewModel</param>
+            <returns></returns>
+        </member>
+        <member name="T:LibraryApi.Presentation.Configs.ApplicationDependencyExtensions">
+            <summary>
+            依存関係(DI)の設定
+            インフラストラクチャ層、アプリケーション層、プレゼンテーション層
+            をまとめて追加する拡張クラス
+            </summary>
+        </member>
+        <member name="M:LibraryApi.Presentation.Configs.ApplicationDependencyExtensions.AddApplicationDependencies(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            アプリ全体の依存関係を一括追加する拡張メソッド
+            </summary>
+            <param name="services">サービスコレクション</param>
+            <param name="config">構成情報</param>
+            <returns>IServiceCollection(チェーン可能)</returns>
+        </member>
+        <member name="M:LibraryApi.Presentation.Configs.ApplicationDependencyExtensions.AddInfrastructureDependencies(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            インフラストラクチャ層の依存関係を追加
+            </summary>
+            <param name="services">依存関係注入(DI)のサービスコレクション</param>
+            <param name="config">アプリケーションの設定情報を管理</param>
+            <returns></returns>
+        </member>
+        <member name="M:LibraryApi.Presentation.Configs.ApplicationDependencyExtensions.AddApplicationLayerDependencies(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            アプリケーション層の依存関係を追加
+            </summary>
+            <param name="services">依存関係注入(DI)のサービスコレクション</param>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LibraryApi.Presentation.Configs.ApplicationDependencyExtensions.AddPresentationLayerDependencies(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            プレゼンテーション層の依存関係を追加
+            </summary>
+            <param name="services">依存関係注入(DI)のサービスコレクション</param>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LibraryApi.Presentation.Configs.ApplicationDependencyExtensions.BuildAppProvider(Microsoft.Extensions.Configuration.IConfiguration,System.Action{Microsoft.Extensions.DependencyInjection.IServiceCollection},System.Action{Microsoft.Extensions.Logging.ILoggingBuilder})">
+            <summary>
+            テストプロジェクトにServiceProviderを提供するヘルパメソッド
+            </summary>
+            <param name="config"></param>
+            <param name="configureServices"></param>
+            <param name="configureLogging"></param>
+            <returns></returns>
+        </member>
+        <member name="T:LibraryApi.Presentation.Controllers.RegisterBookController">
+            <summary>
+            ユースケース:[新図書を登録する]を実現するコントローラ
+            </summary>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.RegisterBookController.#ctor(LibraryApi.Application.Usecases.Products.Interfaces.IRegisterBookUsecase,LibraryApi.Presentation.Adapters.RegisterBookViewModelAdapter)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="usecase">ユースケース:[新図書を登録する]を実現するインターフェイス</param>
+            <param name="adapter">RegisterBookViewModelからドメインオブジェクト:Bookへ変換するアダプタ</param>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.RegisterBookController.GetCategories">
+            <summary>
+            分類一覧の取得
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.RegisterBookController.GetCategoryById(System.String)">
+            <summary>
+            選択された分類識別Idで分類を取得する
+            </summary>
+            <param name="categoryId">分類識別Id(UUID)</param>
+            <returns>該当するカテゴリが存在すればOK(200)、存在しなければNotFound(404)</returns>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.RegisterBookController.ValidateBook(System.String)">
+            <summary>
+            図書が既に存在するかを検証する
+            </summary>
+            <param name="bookName">検証対象の図書名</param>
+            <returns>
+            存在しない場合:Ok(200)、存在する場合:Conflict(409) 
+            </returns>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.RegisterBookController.Register(LibraryApi.Presentation.ViewModels.RegisterBookViewModel)">
+            <summary>
+            新図書を登録する
+            </summary>
+            <param name="model">図書登録用ViewModel</param>
+            <returns></returns>
+        </member>
+        <member name="T:LibraryApi.Presentation.Controllers.SearchBookByKeywordController">
+            <summary>
+            ユースケース:[書籍をキーワード検索する]を実現するコントローラ
+            </summary>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.SearchBookByKeywordController.#ctor(LibraryApi.Application.Usecases.Products.Interfaces.ISearchBookByKeywordUsecase)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="usecase">ユースケース:[図書をキーワード検索する]を実現するインターフェイス</param>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.SearchBookByKeywordController.Search(System.String)">
+            <summary>
+            キーワードで図書を検索する
+            </summary>
+            <param name="keyword">検索キーワード</param>
+            <returns>検索結果の図書一覧</returns>
+        </member>
+        <member name="T:LibraryApi.Presentation.Controllers.UpdateBookController">
+            <summary>
+            ユースケース:[図書を変更する]を実現するコントローラ
+            </summary>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.UpdateBookController.#ctor(LibraryApi.Application.Usecases.Products.Interfaces.IUpdateBookUsecase,LibraryApi.Presentation.Adapters.UpdateBookViewModelAdapter)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="usecase">ユースケース:[図書を変更する]を実現するインターフェイス</param>
+            <param name="adapter">UpdateBookViewModelからドメインオブジェクト:Bookへ変換するアダプタ</param>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.UpdateBookController.GetBookById(System.String)">
+            <summary>
+            選択された図書Idで図書を取得する
+            </summary>
+            <param name="bookId">図書Id(UUID)</param>
+            <returns>該当する図書が存在すればOK(200)、存在しなければNotFound(404)</returns>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.UpdateBookController.ValidateBook(System.String)">
+            <summary>
+            図書が既に存在するかを検証する
+            </summary>
+            <param name="bookName">検証対象の図書名</param>
+            <returns>
+            存在しない場合:Ok(200)、存在する場合:Conflict(409) 
+            </returns>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.UpdateBookController.Updated(LibraryApi.Presentation.ViewModels.UpdateBookViewModel)">
+            <summary>
+            図書を変更する
+            </summary>
+            <param name="model">図書変更用ViewModel</param>
+            <returns></returns>
+        </member>
+        <member name="T:LibraryApi.Presentation.ViewModels.RegisterBookViewModel">
+            <summary>
+            ユースケース:[新図書を登録する]を実現するViewModel
+            </summary>
+        </member>
+        <member name="T:LibraryApi.Presentation.ViewModels.UpdateBookViewModel">
+            <summary>
+            ユースケース:[図書を変更する]を実現するViewModel
+            </summary>
+        </member>
+    </members>
+</doc>

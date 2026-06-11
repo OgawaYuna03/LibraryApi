@@ -5,8 +5,8 @@ namespace LibraryApi.Infrastructure.Contexts;
 /// <summary>
 /// アプリケーション用データベースコンテキスト（PostgreSQL対応）
 /// 方針：
-/// - Book : BookCategory = N:1（カテゴリ削除で商品も削除：Cascade）
-/// - Book : BookStock    = 1:1（商品削除で在庫も削除：Cascade）
+/// - Book : BookCategory = N:1（カテゴリ削除で図書も削除：Cascade）
+/// - Book : BookStock    = 1:1（図書削除で在庫も削除：Cascade）
 /// - UUIDはドメイン層で生成して保存（DB側での自動生成はしない）
 /// - 1:1は book_stock.book_id の一意制約で担保
 /// </summary>
@@ -20,35 +20,35 @@ public class AppDbContext : DbContext
     {
     }
     /// <summary>
-    /// 商品テーブルアクセスプロパティ
+    /// 図書テーブルアクセスプロパティ
     /// </summary>
     public DbSet<BookEntity> Books => Set<BookEntity>();
     /// <summary>
-    /// 商品カテゴリテーブルアクセスプロパティ
+    /// 図書カテゴリテーブルアクセスプロパティ
     /// </summary>
     public DbSet<CategoryEntity> Categories => Set<CategoryEntity>();
     /// <summary>
-    /// 商品在庫テーブルアクセスプロパティ
+    /// 図書在庫テーブルアクセスプロパティ
     /// </summary>
     public DbSet<BookStockEntity> BookStocks => Set<BookStockEntity>();
 
     // TODO: Fluent API でマッピングを定義する
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // 商品テーブルに対する動作設定
+        // 図書テーブルに対する動作設定
         modelBuilder.Entity<BookEntity>(e =>
         {
-            // 商品Id(UUID)はユニーク
+            // 図書Id(UUID)はユニーク
             e.HasIndex(b => b.BookUuid).IsUnique();
-            // 商品名はvarchar(50)でNULL許容
+            // 図書名はvarchar(50)でNULL許容
             e.Property(b => b.Title).HasMaxLength(50);
-            // 商品カテゴリと商品のカーディナリティ(1:N) 商品カテゴリ削除時に商品も削除
+            // 図書カテゴリと図書のカーディナリティ(1:N) 図書カテゴリ削除時に図書も削除
             e.HasOne(b => b.Category)
                 .WithMany(b => b.Books!)
                 .HasForeignKey(b => b.CategoryId)
                 .HasConstraintName("book_ibfk_category")
                 .OnDelete(DeleteBehavior.Cascade);
-            // 商品と商品在庫のカーディナリティ(1:1) 商品削除時に商品在庫も削除
+            // 図書と図書在庫のカーディナリティ(1:1) 図書削除時に図書在庫も削除
             e.HasOne(b => b.BookStock)
                 .WithOne(s => s.Book!)
                 .HasForeignKey<BookStockEntity>(s => s.BookId)
@@ -61,12 +61,12 @@ public class AppDbContext : DbContext
                 // v => v.ToString()
            // );
         });
-        // 商品カテゴリの動作設定
+        // 図書カテゴリの動作設定
         modelBuilder.Entity<CategoryEntity>(e =>
         {
-            // 商品カテゴリId(UUID)はユニーク
+            // 図書カテゴリId(UUID)はユニーク
             e.HasIndex(c => c.CategoryUuid).IsUnique();
-            // 商品カテゴリ名はvarchar(20)でNULL許容
+            // 図書カテゴリ名はvarchar(20)でNULL許容
             e.Property(c => c.Name).HasMaxLength(20);
 
             // C#のstring ⇔ PostgreSQLのuuidを自動変換する
@@ -76,12 +76,12 @@ public class AppDbContext : DbContext
                 // v => v.ToString()    // DB(uuid)をC#(string)に読み込む時の処理
           //  );
         });
-        // 商品在庫の動作設定
+        // 図書在庫の動作設定
         modelBuilder.Entity<BookStockEntity>(e =>
         {
-            // 商品在庫Id(UUID)はユニーク
+            // 図書在庫Id(UUID)はユニーク
             e.HasIndex(s => s.StockUuid).IsUnique();
-            // 商品Id(UUID)はユニーク
+            // 図書Id(UUID)はユニーク
             e.HasIndex(s => s.BookId).IsUnique();
             // C#のstring ⇔ PostgreSQLのuuidを自動変換する
             e.Property(s => s.StockUuid).HasMaxLength(36);

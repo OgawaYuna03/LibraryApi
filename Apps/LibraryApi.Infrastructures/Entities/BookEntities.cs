@@ -34,7 +34,7 @@ public class BookEntity
 
     // Categroyエンティティへのナビゲーションプロパティ
     // CategoryIdプロパティの値と外部キー関係にある
-    // null許容にし、商品のカテゴリを含めないケースも許可する
+    // null許容にし、図書のカテゴリを含めないケースも許可する
     [ForeignKey("CategoryId")]
     public CategoryEntity? Category { get; set; }
 

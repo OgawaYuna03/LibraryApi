@@ -10,17 +10,17 @@ public class RegisterBookViewModelAdapter : IRestorer<Book, RegisterBookViewMode
     /// <summary>
     /// RegisterBookViewModelからドメインオブジェクト:Bookを復元する
     /// </summary>
-    /// <param name="target">ユースケース:[新商品を登録する]を実現するViewModel</param>
+    /// <param name="target">ユースケース:[新図書を登録する]を実現するViewModel</param>
     /// <returns></returns>
     public Task<Book> RestoreAsync(RegisterBookViewModel target)
     {
-        // 商品カテゴリを生成する
+        // 図書カテゴリを生成する
         var category = new Category(target.CategoryId, target.Category);
-        // 商品在庫を生成する
+        // 図書在庫を生成する
         var bookStock = new BookStock(target.Stock);
-        // 商品を生成する
+        // 図書を生成する
         var book = new Book(Guid.NewGuid().ToString(), target.Title, target.Author);
-        // 商品カテゴリと商品在庫を設定する
+        // 図書カテゴリと図書在庫を設定する
         book.ChangeCategory(category);
         book.ChangeStock(bookStock);
         return Task.FromResult(book);

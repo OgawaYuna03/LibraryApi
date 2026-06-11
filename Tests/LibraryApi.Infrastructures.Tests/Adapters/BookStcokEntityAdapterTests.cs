@@ -78,7 +78,7 @@ public class BookStockEntityAdapterTests
         var entity = await _adapter.ConvertAsync(domain);
         // nullでないことを検証する
         Assert.IsNotNull(entity);
-        // 識別IdがBookStcokと同じであるこを検証する
+        // 分類識別IdがBookStcokと同じであるこを検証する
         Assert.AreEqual(stockUuid, entity.StockUuid);
         // 蔵書数が25であることを検証する
         Assert.AreEqual(25, entity.Stock);

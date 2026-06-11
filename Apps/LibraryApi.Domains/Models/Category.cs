@@ -8,7 +8,7 @@ public class Category
     
    
     /// <summary>
-    /// 識別Id(UUID形式)
+    /// 分類識別Id(UUID形式)
     /// </summary>
     public string CategoryUuid { get; private set; }= string.Empty;
     /// <summary>   
@@ -19,7 +19,7 @@ public class Category
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    /// <param name="categoryUuid">識別Id</param>
+    /// <param name="categoryUuid">分類識別Id</param>
     /// <param name="name"分類名</param>
     public Category (string categoryUuid, string name)
     {
@@ -30,7 +30,7 @@ public class Category
         Name = name;
     }
     /// <summary>
-    /// コンストラクタ:新しい識別Id(UUID)を生成する
+    /// コンストラクタ:新しい分類識別Id(UUID)を生成する
     /// </summary>
     /// <param name="name">分類名</param>
     public Category(string name): this(Guid.NewGuid().ToString(), name){}
@@ -38,15 +38,15 @@ public class Category
     /// <summary>
     /// データのドメインルール違反チェック
     /// </summary>
-    /// <param name="categoryUuid">識別Id</param>
+    /// <param name="categoryUuid">分類識別Id</param>
     /// <param name="name">分類名</param>
     /// <exception cref="DomainException">引数が無効な場合にスローされる</exception>
     private void ValidatCategory(string categoryUuid, string name)
     {
         if (string.IsNullOrWhiteSpace(categoryUuid))
-            throw new DomainException($"識別Idは必須です。{nameof(categoryUuid)}");
+            throw new DomainException($"分類識別Idは必須です。{nameof(categoryUuid)}");
         if (!Guid.TryParse(categoryUuid, out _))
-            throw new DomainException($"識別IdはUUIDの形式でなければなりません。");
+            throw new DomainException($"分類識別IdはUUIDの形式でなければなりません。");
         ValidateName(name);// 分類名のバリデーション処理（共通）
     }   
 

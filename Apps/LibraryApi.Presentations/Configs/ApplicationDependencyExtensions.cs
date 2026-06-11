@@ -60,11 +60,11 @@ public static class ApplicationDependencyExtensions
         services.AddScoped<CategoryEntityAdapter>();
         // ドメインオブジェクト:BookとBookEntityの相互変換クラス
         services.AddScoped<BookEntityAdapter>();
-        // 商品、商品カテゴリ、商品在庫オブジェクトの相互変換Factoryクラス
+        // 図書、図書カテゴリ、図書在庫オブジェクトの相互変換Factoryクラス
         services.AddScoped<BookFactory>();
-        // ドメインオブジェクト:商品カテゴリのCRUD操作Repositoryインターフェイス
+        // ドメインオブジェクト:図書カテゴリのCRUD操作Repositoryインターフェイス
         services.AddScoped<ICategoryRepository, CategoryRepository>();
-        // ドメインオブジェクト:商品のCRUD操作Repositoryインターフェイス
+        // ドメインオブジェクト:図書のCRUD操作Repositoryインターフェイス
         services.AddScoped<IBookRepository, BookRepository>();
         // Unit of Workパターンを利用したトランザクション制御インターフェイス
         services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -81,11 +81,11 @@ public static class ApplicationDependencyExtensions
     private static IServiceCollection AddApplicationLayerDependencies(
         this IServiceCollection services, IConfiguration config)
     {
-        //ユースケース：[新商品を登録する]を実現するインターフェース
+        //ユースケース：[新図書を登録する]を実現するインターフェース
         services.AddScoped<IRegisterBookUsecase, RegisterBookUsecase>();
-        //ユースケース[商品を変更する]を実現するインターフェース
+        //ユースケース[図書を変更する]を実現するインターフェース
         services.AddScoped<IUpdateBookUsecase, UpdateBookUsecase>();
-        //ユースケース[商品をキーワード検索する]を実現するインターフェース
+        //ユースケース[図書をキーワード検索する]を実現するインターフェース
         services.AddScoped<ISearchBookByKeywordUsecase, SearchBookByKeywordUsecase>();
         // UpdateProductViewModelからドメインオブジェクト:Productへ変換するアダプタ
         return services;
@@ -104,6 +104,8 @@ public static class ApplicationDependencyExtensions
         services.AddControllers();
         // RegisterProductViewModelからドメインオブジェクト:Productへ変換するアダプタ
         services.AddScoped<RegisterBookViewModelAdapter>();
+        // UpdateProductViewModelからドメインオブジェクト:Productへ変換するアダプタ
+        services.AddScoped<UpdateBookViewModelAdapter>();
         return services;
     }
 

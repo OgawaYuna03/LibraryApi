@@ -13,7 +13,19 @@
             <summary>
             RegisterBookViewModelからドメインオブジェクト:Bookを復元する
             </summary>
-            <param name="target">ユースケース:[新商品を登録する]を実現するViewModel</param>
+            <param name="target">ユースケース:[新図書を登録する]を実現するViewModel</param>
+            <returns></returns>
+        </member>
+        <member name="T:LibraryApi.Presentation.Adapters.UpdateBookViewModelAdapter">
+            <summary>
+            UpdateBookViewModelからドメインオブジェクト:Bookへ変換するアダプタ
+            </summary>
+        </member>
+        <member name="M:LibraryApi.Presentation.Adapters.UpdateBookViewModelAdapter.RestoreAsync(LibraryApi.Presentation.ViewModels.UpdateBookViewModel)">
+            <summary>
+            UpdateBookViewModelからドメインオブジェクト:Bookを復元する
+            </summary>
+            <param name="target">ユースケース:[図書を変更する]を実現するViewModel</param>
             <returns></returns>
         </member>
         <member name="T:LibraryApi.Presentation.Configs.ApplicationDependencyExtensions">
@@ -64,6 +76,50 @@
             <param name="configureLogging"></param>
             <returns></returns>
         </member>
+        <member name="T:LibraryApi.Presentation.Configs.ExceptionHandlingExtensions">
+            <summary>
+            ExceptionHandlingMiddlewareを登録する拡張メソッドクラス
+            </summary>
+        </member>
+        <member name="M:LibraryApi.Presentation.Configs.ExceptionHandlingExtensions.UseExceptionHandling(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            ExceptionHandlingMiddlewareをアプリケーションパイプラインに登録する拡張メソッド
+            </summary>
+            <param name="app">IApplicationBuilderのインスタンス</param>
+            <returns>登録後のIApplicationBuilder</returns>
+        </member>
+        <member name="T:LibraryApi.Presentation.Controllers.RegisterBookController">
+            <summary>
+            ユースケース:[新図書を登録する]を実現するコントローラ
+            </summary>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.RegisterBookController.#ctor(LibraryApi.Application.Usecases.Products.Interfaces.IRegisterBookUsecase,LibraryApi.Presentation.Adapters.RegisterBookViewModelAdapter)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="usecase">ユースケース:[新図書を登録する]を実現するインターフェイス</param>
+            <param name="adapter">RegisterBookViewModelからドメインオブジェクト:Bookへ変換するアダプタ</param>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.RegisterBookController.GetCategories">
+            <summary>
+            図書カテゴリ一覧の取得
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.RegisterBookController.GetCategoryById(System.String)">
+            <summary>
+            選択された図書カテゴリIdで図書カテゴリを取得する
+            </summary>
+            <param name="categoryId">図書カテゴリId(UUID)</param>
+            <returns>該当するカテゴリが存在すればOK(200)、存在しなければNotFound(404)</returns>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.RegisterBookController.Register(LibraryApi.Presentation.ViewModels.RegisterBookViewModel)">
+            <summary>
+            新図書を登録する
+            </summary>
+            <param name="model">図書登録用ViewModel</param>
+            <returns></returns>
+        </member>
         <member name="T:LibraryApi.Presentation.Controllers.SearchBookByKeywordController">
             <summary>
             ユースケース:[書籍をキーワード検索する]を実現するコントローラ
@@ -73,18 +129,70 @@
             <summary>
             コンストラクタ
             </summary>
-            <param name="usecase">ユースケース:[商品をキーワード検索する]を実現するインターフェイス</param>
+            <param name="usecase">ユースケース:[図書をキーワード検索する]を実現するインターフェイス</param>
         </member>
         <member name="M:LibraryApi.Presentation.Controllers.SearchBookByKeywordController.Search(System.String)">
             <summary>
-            キーワードで商品を検索する
+            キーワードで図書を検索する
             </summary>
             <param name="keyword">検索キーワード</param>
-            <returns>検索結果の商品一覧</returns>
+            <returns>検索結果の図書一覧</returns>
+        </member>
+        <member name="T:LibraryApi.Presentation.Controllers.UpdateBookController">
+            <summary>
+            ユースケース:[図書を変更する]を実現するコントローラ
+            </summary>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.UpdateBookController.#ctor(LibraryApi.Application.Usecases.Products.Interfaces.IUpdateBookUsecase,LibraryApi.Presentation.Adapters.UpdateBookViewModelAdapter)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="usecase">ユースケース:[図書を変更する]を実現するインターフェイス</param>
+            <param name="adapter">UpdateBookViewModelからドメインオブジェクト:Bookへ変換するアダプタ</param>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.UpdateBookController.GetBookById(System.String)">
+            <summary>
+            選択された図書Idで図書を取得する
+            </summary>
+            <param name="bookId">図書Id(UUID)</param>
+            <returns>該当する図書が存在すればOK(200)、存在しなければNotFound(404)</returns>
+        </member>
+        <member name="M:LibraryApi.Presentation.Controllers.UpdateBookController.Updated(LibraryApi.Presentation.ViewModels.UpdateBookViewModel)">
+            <summary>
+            図書を変更する
+            </summary>
+            <param name="model">図書変更用ViewModel</param>
+            <returns></returns>
         </member>
         <member name="T:LibraryApi.Presentation.ViewModels.RegisterBookViewModel">
             <summary>
-            ユースケース:[新商品を登録する]を実現するViewModel
+            ユースケース:[新図書を登録する]を実現するViewModel
+            </summary>
+        </member>
+        <member name="T:LibraryApi.Presentation.ViewModels.UpdateBookViewModel">
+            <summary>
+            ユースケース:[図書を変更する]を実現するViewModel
+            </summary>
+        </member>
+        <member name="T:LibraryApi.Presentations.Middlewares.ExceptionHandlingMiddleware">
+            <summary>
+            InternalException及び未対応の例外をハンドリングするミドルウェア
+            - 例外をキャッチし、ログにエラーメッセージとスタックトレースを出力する
+            - クライアントには統一的な JSON レスポンスを返し、内部情報を直接漏らさない
+            </summary>
+        </member>
+        <member name="M:LibraryApi.Presentations.Middlewares.ExceptionHandlingMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILogger{LibraryApi.Presentations.Middlewares.ExceptionHandlingMiddleware})">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="next">次のミドルウェアを実行するためのデリゲート</param>
+            <param name="logger">>ログ出力のためのILoggerインスタンス</param>
+        </member>
+        <member name="M:LibraryApi.Presentations.Middlewares.ExceptionHandlingMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            ミドルウェア本体
+            - try/catch で次の処理をラップし、例外発生時にキャッチする
+            - InternalException とそれ以外の例外を区別して処理する
             </summary>
         </member>
     </members>

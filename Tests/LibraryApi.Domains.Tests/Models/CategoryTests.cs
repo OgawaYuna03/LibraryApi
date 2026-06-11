@@ -18,9 +18,9 @@ public class CategoryTests
         var categoryUuid = new Category(uuid, name);
         // nullでないことを検証する
         Assert.IsNotNull(categoryUuid);
-        // 商品カテゴリIdを検証する
+        // 図書カテゴリIdを検証する
         Assert.AreEqual(uuid, categoryUuid.CategoryUuid);
-        // 商品カテゴリ名を検証する
+        // 図書カテゴリ名を検証する
         Assert.AreEqual(name, categoryUuid.Name);
     }
 
@@ -31,7 +31,7 @@ public class CategoryTests
         var name = "教科書";
         // インスタンスを生成する
         var category = new Category(name);
-        // 識別IdがUUID形式かどうかを検証する
+        // 分類識別IdがUUID形式かどうかを検証する
         Assert.IsTrue(Guid.TryParse(category.CategoryUuid, out _));
         // 分類名を検証する
         Assert.AreEqual(name, category.Name);
@@ -48,7 +48,7 @@ public class CategoryTests
             _ = new Category(invalidUuid , name); // インスタンスを生成する
         });
         // 例外メッセージを検証する
-        Assert.AreEqual("識別IdはUUIDの形式でなければなりません。", ex.Message);
+        Assert.AreEqual("分類識別IdはUUIDの形式でなければなりません。", ex.Message);
     }
 
     [TestMethod("カテゴリ名が空白の場合、DomainExceptionがスローされる")]
@@ -84,7 +84,7 @@ public class CategoryTests
         // インスタンスを生成する
         var category = new Category("ビジネス書");
         var newName = "絵本";
-        // 商品カテゴリ名を変更する
+        // 図書カテゴリ名を変更する
         category.ChangeName(newName);
         // 変更結果を検証する
         Assert.AreEqual(newName, category.Name);
@@ -97,7 +97,7 @@ public class CategoryTests
         var category = new Category("児童書");
         var ex = Assert.ThrowsException<DomainException>(() =>
         {
-            category.ChangeName("");// 空白で商品カテゴリ名を変更する
+            category.ChangeName("");// 空白で図書カテゴリ名を変更する
         });
         // 例外メッセージを検証する
         Assert.AreEqual("分類名は必須です。", ex.Message);

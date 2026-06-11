@@ -6,7 +6,7 @@ using LibraryApi.Infrastructure.Adapters;
 using LibraryApi.Presentation.Configs;
 namespace LibraryApi.Infrastructure.Tests.Adapters;
 /// <summary>
-/// 商品、商品カテゴリ、商品在庫オブジェクトの相互変換Factoryクラスの単体テストドライバ
+/// 図書、図書カテゴリ、図書在庫オブジェクトの相互変換Factoryクラスの単体テストドライバ
 /// </summary>
 [TestCategory("Adapters")]
 [TestClass]
@@ -78,14 +78,14 @@ public class BookFactoryTests
         var entity = await _factory.ConvertAsync(book);
         // nullでないことを検証する
         Assert.IsNotNull(entity);
-        // 識別Idが一致することを検証する
+        // 分類識別Idが一致することを検証する
         Assert.AreEqual(uuid, entity.BookUuid);
-        // 書名がぐりとぐらであることを検証する
+        // 図書名がぐりとぐらであることを検証する
         Assert.AreEqual("ぐりとぐら", entity.Title);
         // 著者名が中川李枝子であることを検証する
         Assert.AreEqual("中川李枝子", entity.Author);
     }
-    [TestMethod("Bookの集約からbookEntityの集約に変換できる(商品、商品カテゴリ)")]
+    [TestMethod("Bookの集約からbookEntityの集約に変換できる(図書、図書カテゴリ)")]
 public async Task ConvertAsync_Should_MapPropertiesCorrectly_Case2()
 {
     // 変換対象を生成する
@@ -98,9 +98,9 @@ public async Task ConvertAsync_Should_MapPropertiesCorrectly_Case2()
     var entity = await _factory.ConvertAsync(book);
     // nullでないことを検証する
     Assert.IsNotNull(entity);
-    // 商品Idが一致することを検証する
+    // 図書Idが一致することを検証する
     Assert.AreEqual(bookUuid, entity.BookUuid);
-    // 書名が中川李枝子であることを検証する
+    // 図書名が中川李枝子であることを検証する
     Assert.AreEqual("ぐりとぐら", entity.Title);
     // 著者名が中川李枝子であることを検証する
     Assert.AreEqual("中川李枝子", entity.Author);
@@ -109,7 +109,7 @@ public async Task ConvertAsync_Should_MapPropertiesCorrectly_Case2()
     // カテゴリ名が一致することを検証する
     Assert.AreEqual("児童書", entity.Category!.Name);
 }
-[TestMethod("Bookの集約からBookEntityの集約に変換できる(書名、分類、蔵書)")]
+[TestMethod("Bookの集約からBookEntityの集約に変換できる(図書名、分類、蔵書)")]
 public async Task ConvertAsync_Should_MapPropertiesCorrectly_Case3()
 {
     // 変換対象を生成する
@@ -125,17 +125,17 @@ public async Task ConvertAsync_Should_MapPropertiesCorrectly_Case3()
     var entity = await _factory.ConvertAsync(book);
     // nullでないことを検証する
     Assert.IsNotNull(entity);
-    // 識別Idが一致することを検証する
+    // 分類識別Idが一致することを検証する
     Assert.AreEqual(bookUuid, entity.BookUuid);
-    // 書名がペンであることを検証する
+    // 図書名がペンであることを検証する
     Assert.AreEqual("ぐりとぐら", entity.Title);
     // 著者名がであることを検証する
     Assert.AreEqual("中川李枝子", entity.Author);
-    // 識別Idが一致することを検証する
+    // 分類識別Idが一致することを検証する
     Assert.AreEqual(categoryUuid, entity.Category!.CategoryUuid);
     // 分類名が一致することを検証する
     Assert.AreEqual("児童書", entity.Category!.Name);
-    // 識別Idが一致することを検証する
+    // 分類識別Idが一致することを検証する
     Assert.AreEqual(stockUuid, entity.BookStock!.StockUuid);
     // 蔵書数が一致することを検証する
     Assert.AreEqual(20, entity.BookStock!.Stock);
@@ -168,18 +168,18 @@ public async Task ConvertAsync_List_ShouldSucceed()
     var index = 0;
     foreach (var entity in entities)
     {
-        // 識別Idが一致することを検証する
+        // 分類識別Idが一致することを検証する
         Assert.AreEqual(books[index].BookUuid, entity.BookUuid);
-        // 書名が一致することを検証する
+        // 図書名が一致することを検証する
         Assert.AreEqual(books[index].Title, entity.Title);
         // 著者名が一致することを検証する
        Assert.AreEqual(books[index].Author, entity.Author);
-        // 商品カテゴリIdが一致することを検証する
+        // 図書カテゴリIdが一致することを検証する
         Assert.AreEqual(books[index].Category!.CategoryUuid,
             entity.Category!.CategoryUuid);
         // 分類名が一致することを検証する
         Assert.AreEqual(books[index].Category!.Name, entity.Category!.Name);
-        // 識別Idが一致することを検証する
+        // 分類識別Idが一致することを検証する
         Assert.AreEqual(books[index].BookStock!.StockUuid, entity.BookStock!.StockUuid);
         // 蔵書数が一致することを検証する
         Assert.AreEqual(books[index].BookStock!.Stock, entity.BookStock!.Stock);
@@ -200,14 +200,14 @@ public async Task RestireAsync_Should_MapPropertiesCorrectly_Case1()
     var book = await _factory.RestoreAsync(bookEntity);
     // nullでないことを検証する
    Assert.IsNotNull(book);
-    // 商品Idが一致することを検証する
+    // 図書Idが一致することを検証する
     Assert.AreEqual(bookEntity.BookUuid, book.BookUuid);
-    // 商品名が一致することを検証する
+    // 図書名が一致することを検証する
     Assert.AreEqual(bookEntity.Title, book.Title);
     // 単価が一致することを検証する
     Assert.AreEqual(bookEntity.Author, book.Author);
 }
-[TestMethod("BookEntityの集約からBookの集約を復元できる(書名、分類)")]
+[TestMethod("BookEntityの集約からBookの集約を復元できる(図書名、分類)")]
 public async Task RestireAsync_Should_MapPropertiesCorrectly_Case2()
 {
     // 変換対象を生成する
@@ -227,20 +227,20 @@ public async Task RestireAsync_Should_MapPropertiesCorrectly_Case2()
 
     // nullでないことを検証する
     Assert.IsNotNull(book);
-    // 商品Idが一致することを検証する
+    // 図書Idが一致することを検証する
     Assert.AreEqual(bookEntity.BookUuid, book.BookUuid);
-    // 商品名が一致することを検証する
+    // 図書名が一致することを検証する
     Assert.AreEqual(bookEntity.Title, book.Title);
     // 単価が一致することを検証する
     Assert.AreEqual(bookEntity.Author, book.Author);
-    // 商品カテゴリIdが一致することを検証する
+    // 図書カテゴリIdが一致することを検証する
     Assert.AreEqual(bookEntity.Category.CategoryUuid,
         book.Category!.CategoryUuid);
-    // 商品カテゴリ名が一致することを検証する
+    // 図書カテゴリ名が一致することを検証する
     Assert.AreEqual(bookEntity.Category.Name,
         book.Category!.Name);
 }
-[TestMethod("BookEntityの集約からBookの集約を復元できる(書名、分類、蔵書数)")]
+[TestMethod("BookEntityの集約からBookの集約を復元できる(図書名、分類、蔵書数)")]
 public async Task RestireAsync_Should_MapPropertiesCorrectly_Case3()
 {
     // 変換対象を生成する
@@ -266,21 +266,21 @@ public async Task RestireAsync_Should_MapPropertiesCorrectly_Case3()
 
     // nullでないことを検証する
     Assert.IsNotNull(book);
-    // 商品Idが一致することを検証する
+    // 図書Idが一致することを検証する
     Assert.AreEqual(bookEntity.BookUuid, book.BookUuid);
-    // 商品名が一致することを検証する
+    // 図書名が一致することを検証する
     Assert.AreEqual(bookEntity.Title, book.Title);
     // 単価が一致することを検証する
     Assert.AreEqual(bookEntity.Author, book.Author);
-    // 商品カテゴリIdが一致することを検証する
+    // 図書カテゴリIdが一致することを検証する
     Assert.AreEqual(bookEntity.Category.CategoryUuid,
         book.Category!.CategoryUuid);
-    // 商品カテゴリ名が一致することを検証する
+    // 図書カテゴリ名が一致することを検証する
     Assert.AreEqual(bookEntity.Category.Name,
         book.Category!.Name);
-    // 商品在庫Idが一致することを検証する
+    // 図書在庫Idが一致することを検証する
     Assert.AreEqual(bookEntity.BookStock.StockUuid, book.BookStock!.StockUuid);
-    // 商品在庫数が一致することを検証する
+    // 図書在庫数が一致することを検証する
     Assert.AreEqual(bookEntity.BookStock.Stock, book.BookStock!.Stock);
 }
 [TestMethod("エンティティのリストからドメインオブジェクトのリストを復元できる")]
@@ -344,22 +344,22 @@ public async Task RestoreAsync_List_ShouldSucceed()
     var index = 0;
     foreach (var domain in domains)  
     {
-        // 商品Idが一致することを検証する
+        // 図書Idが一致することを検証する
         Assert.AreEqual(bookEntities[index].BookUuid, domain.BookUuid);
-        // 商品名が一致することを検証する
+        // 図書名が一致することを検証する
         Assert.AreEqual(bookEntities[index].Title, domain.Title);   
         // 単価が一致することを検証する  
         Assert.AreEqual(bookEntities[index].Author, domain.Author);    
-        // 商品カテゴリIdが一致することを検証する
+        // 図書カテゴリIdが一致することを検証する
         Assert.AreEqual(bookEntities[index].Category!.CategoryUuid,
             domain.Category!.CategoryUuid);
-        // 商品カテゴリ名が一致することを検証する
+        // 図書カテゴリ名が一致することを検証する
         Assert.AreEqual(bookEntities[index].Category!.Name,
             domain.Category!.Name);
-        // 商品在庫Idが一致することを検証する
+        // 図書在庫Idが一致することを検証する
         Assert.AreEqual(bookEntities[index].BookStock!.StockUuid,
             domain.BookStock!.StockUuid);
-        // 商品在庫数が一致することを検証する
+        // 図書在庫数が一致することを検証する
         Assert.AreEqual(bookEntities[index].BookStock!.Stock,
             domain.BookStock!.Stock);
         index++;

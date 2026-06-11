@@ -89,7 +89,7 @@ public class BookRepositoryTests
         Assert.IsNotNull(book);
         // 書籍Idを検証する
         Assert.AreEqual("64b25512-6dfc-4034-9372-9030f118bdb9", book.BookUuid);
-        // 書名を検証する
+        // 図書名を検証する
         Assert.AreEqual("はらぺこあおむし", book.Title);
         // 単価を検証する
         Assert.AreEqual("エリック・カール", book.Author);
@@ -139,7 +139,7 @@ public class BookRepositoryTests
                  Assert.IsNotNull(result);
                  // 書籍Idを検証する
                  Assert.AreEqual(result.BookUuid, book.BookUuid);
-                 // 書名を検証する
+                 // 図書名を検証する
                  Assert.AreEqual(result.Title, book.Title);
                  // 単価を検証する
                  Assert.AreEqual(result.Author, book.Author);
@@ -158,14 +158,14 @@ public class BookRepositoryTests
             }
         });
     }
-        [TestMethod("書名が存在するとtrueが返される")]
+        [TestMethod("図書名が存在するとtrueが返される")]
     public async Task ExistsByTitle_WhenTitleExists_ShouldReturnTrue()
     {
         var result = await _bookRepository.ExistsByTitleAsync("はらぺこあおむし");
         Assert.IsTrue(result);
     }
 
-    [TestMethod("書名が存在しないとfalseが返される")]
+    [TestMethod("図書名が存在しないとfalseが返される")]
     public async Task ExistsByTitle_WhenTitleDoesNotExist_ShouldReturnFalse()
     {
         var result = await _bookRepository.ExistsByTitleAsync("かいけつゾロリ");
@@ -213,7 +213,7 @@ public class BookRepositoryTests
                 // 変更された書籍を取得する
                 var updateResult = await _bookRepository
                     .SelectByIdWithBookStockAndCategoryAsync(book.BookUuid);
-                // 書名を検証する
+                // 図書名を検証する
                 Assert.AreEqual(book.Title, updateResult!.Title);
                 // 単価を検証する
                 Assert.AreEqual(book.Author, updateResult!.Author);

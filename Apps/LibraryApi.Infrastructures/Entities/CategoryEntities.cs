@@ -25,7 +25,7 @@ public class CategoryEntity
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// カテゴリに属する商品(1:N)
+    /// カテゴリに属する図書(1:N)
     /// </summary>
     public List<BookEntity> Books { get; set; } = new();
 

@@ -72,7 +72,7 @@ public class RegisterBookViewModelAdapterTests
         _scope!.Dispose();
     }
 
-    [TestMethod("ViewModelからBookを復元でき、商品Idと商品在庫Idが自動生成される")]
+    [TestMethod("ViewModelからBookを復元でき、分類識別Idと蔵書Idが自動生成される")]
     public async Task RestoreAsync_ShouldMapVmToDomain_AndGenerateUuids()
     {
         // ViewModelを用意する
@@ -88,27 +88,27 @@ public class RegisterBookViewModelAdapterTests
         var book = await _adapter!.RestoreAsync(viewModel);
         // 書籍名を検証する
         Assert.AreEqual(viewModel.Title, book.Title);
-        // 著書名を検証する
+        // 著図書名を検証する
         Assert.AreEqual(viewModel.Author, book.Author);
-        // 商品Idが生成されていることを検証する
+        // 図書Idが生成されていることを検証する
         Assert.IsFalse(string.IsNullOrWhiteSpace(book.BookUuid));
         Assert.IsTrue(Guid.TryParse(book.BookUuid, out _));
-        // 商品カテゴリがnullでないことを検証する
+        // 図書カテゴリがnullでないことを検証する
         Assert.IsNotNull(book.Category);
-        // 商品カテゴリIdを検証する
+        // 図書カテゴリIdを検証する
         Assert.AreEqual(viewModel.CategoryId, book.Category!.CategoryUuid);
-        // 商品カテゴリ名を検証する
+        // 図書カテゴリ名を検証する
         Assert.AreEqual(viewModel.Category, book.Category.Name);
-        // 商品在庫がnullでないことを検証する
+        // 図書在庫がnullでないことを検証する
         Assert.IsNotNull(book.BookStock);
-        // 商品在庫を検証する
+        // 図書在庫を検証する
         Assert.AreEqual(viewModel.Stock, book.BookStock!.Stock);
-        // 商品在庫Idが生成されていることを検証する
+        // 図書在庫Idが生成されていることを検証する
         Assert.IsFalse(string.IsNullOrWhiteSpace(book.BookStock.StockUuid));
         Assert.IsTrue(Guid.TryParse(book.BookStock.StockUuid, out _));
     }
 
-    [TestMethod("不正な商品Idの場合、DomainExceptionがスローされる")]
+    [TestMethod("不正な分類識別Idの場合、DomainExceptionがスローされる")]
     public async Task RestoreAsync_ShouldThrow_WhenCategoryIdIsInvalidUuid()
     {
         var viewModel = new RegisterBookViewModel
@@ -123,10 +123,10 @@ public class RegisterBookViewModelAdapterTests
         var ex = await Assert.ThrowsExceptionAsync<DomainException>(
             () => _adapter!.RestoreAsync(viewModel));
         // エラーメッセージを検証する
-        Assert.AreEqual("識別IdはUUIDの形式でなければなりません。", ex.Message);
+        Assert.AreEqual("分類識別IdはUUIDの形式でなければなりません。", ex.Message);
     }
 
-    [TestMethod("書籍名が空白の場合、DomainExceptionがスローされる")]
+    [TestMethod("図書名が空白の場合、DomainExceptionがスローされる")]
     public async Task RestoreAsync_WhenTitleBlank_ShouldThrowDomainException()
     {
         var viewModel = new RegisterBookViewModel
@@ -141,10 +141,10 @@ public class RegisterBookViewModelAdapterTests
         var ex = await Assert.ThrowsExceptionAsync<DomainException>(
             () => _adapter!.RestoreAsync(viewModel));
         // エラーメッセージを検証する
-        Assert.AreEqual("書名は必須です。", ex.Message);
+        Assert.AreEqual("図書名は必須です。", ex.Message);
     }
 
-    [TestMethod("書籍名が51文字の場合、DomainExceptionがスローされる")]
+    [TestMethod("図書名が51文字の場合、DomainExceptionがスローされる")]
     public async Task RestoreAsync_WhenTitleOver30_ShouldThrowDomainException()
     {
         var viewModel = new RegisterBookViewModel
@@ -159,7 +159,7 @@ public class RegisterBookViewModelAdapterTests
         var ex = await Assert.ThrowsExceptionAsync<DomainException>(
             () => _adapter!.RestoreAsync(viewModel));
         // エラーメッセージを検証する
-        Assert.AreEqual("書名は50文字以内である必要があります。", ex.Message);
+        Assert.AreEqual("図書名は50文字以内である必要があります。", ex.Message);
     }
     [TestMethod("著者名が31文字の場合、DomainExceptionがスローされる")]
     public async Task AuthorAsync_WhenTitleOver30_ShouldThrowDomainException()
@@ -176,10 +176,10 @@ public class RegisterBookViewModelAdapterTests
         var ex = await Assert.ThrowsExceptionAsync<DomainException>(
             () => _adapter!.RestoreAsync(viewModel));
         // エラーメッセージを検証する
-        Assert.AreEqual("著書名は30文字以内である必要があります。", ex.Message);
+        Assert.AreEqual("著者名は30文字以内である必要があります。", ex.Message);
     }
 
-    [TestMethod("カテゴリIdが空文字の場合、DomainExceptionがスローされる")]
+    [TestMethod("分類識別Idが空文字の場合、DomainExceptionがスローされる")]
     public async Task RestoreAsync_ShouldThrow_WhenCategoryIdIsEmpty()
     {
         var viewModel = new RegisterBookViewModel
@@ -194,10 +194,10 @@ public class RegisterBookViewModelAdapterTests
         var ex = await Assert.ThrowsExceptionAsync<DomainException>(
             () => _adapter!.RestoreAsync(viewModel));
         // エラーメッセージを検証する
-        Assert.AreEqual("識別Idは必須です。categoryUuid", ex.Message);
+        Assert.AreEqual("分類識別Idは必須です。categoryUuid", ex.Message);
     }
 
-    [TestMethod("在庫数がマイナスの場合、DomainExceptionがスローされる")]
+    [TestMethod("蔵書数がマイナスの場合、DomainExceptionがスローされる")]
     public async Task RestoreAsync_ShouldThrow_WhenStockIsNegative()
     {
         var viewModel = new RegisterBookViewModel

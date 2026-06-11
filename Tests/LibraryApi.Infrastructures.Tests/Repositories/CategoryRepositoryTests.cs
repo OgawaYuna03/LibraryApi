@@ -9,7 +9,7 @@ using LibraryApi.Infrastructure.Contexts;
 using LibraryApi.Presentation.Configs;
 namespace LibraryApi.Infrastructure.Tests.Repositories;
 /// <summary>
-///  ドメインオブジェクト:商品カテゴリのCRUD操作インターフェイスの実装の単体テストドライバ
+///  ドメインオブジェクト:図書カテゴリのCRUD操作インターフェイスの実装の単体テストドライバ
 /// </summary>
 [TestClass]
 [TestCategory("Repositories")]
@@ -76,10 +76,10 @@ public class CategoryRepositoryTests
     }
 
 
-    [TestMethod("すべての商品カテゴリを取得できる")]
+    [TestMethod("すべての図書カテゴリを取得できる")]
     public async Task SelectAllAsync_ShouldReturnAllCategories()
     {
-        // すべての商品カテゴリを取得する
+        // すべての図書カテゴリを取得する
         var categoryies = await _categoryRepository.SelectAllAsync();
         // nullでないことを検証する
         Assert.IsNotNull(categoryies);
@@ -104,7 +104,7 @@ public class CategoryRepositoryTests
         }
     }
 
-    [TestMethod("存在する商品カテゴリIdで商品カテゴリを取得できる")]
+    [TestMethod("存在する図書カテゴリIdで図書カテゴリを取得できる")]
     public async Task SelectByIdAsync_WhenIdExists_ShouldReturnCategory()
     {
         var category = await _categoryRepository
@@ -117,7 +117,7 @@ public class CategoryRepositoryTests
         _testContext?.WriteLine(category.ToString());
     }
 
-    [TestMethod("存在しない商品カテゴリIdの場合はnullを返す")]
+    [TestMethod("存在しない図書カテゴリIdの場合はnullを返す")]
     public async Task SelectByIdAsync_WhenIdDoesNotExist_ShouldReturnNull()
     {
         var category = await _categoryRepository

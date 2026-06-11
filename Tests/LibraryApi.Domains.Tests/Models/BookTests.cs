@@ -25,15 +25,15 @@ public class BookTests
         var stock = CreateStock();
         // インスタンスを生成する
         var book = new Book(uuid, title, author, category, stock);
-        // 商品Idを検証する
+        // 図書Idを検証する
         Assert.AreEqual(uuid, book.BookUuid);
-        // 商品名を検証する
+        // 図書名を検証する
         Assert.AreEqual(title, book.Title);
         // 単価を検証する
         Assert.AreEqual(author, book.Author);
-        // 商品カテゴリを検証する
+        // 図書カテゴリを検証する
         Assert.AreEqual(category, book.Category);
-        // 商品在庫を検証する
+        // 図書在庫を検証する
         Assert.AreEqual(stock, book.BookStock);
     }
 
@@ -47,15 +47,15 @@ public class BookTests
         var stock = CreateStock();
         // インスタンスを生成する
         var book = new Book(title, author, category, stock);
-        // 商品IdがUUID形式かどうかを検証する
+        // 図書IdがUUID形式かどうかを検証する
         Assert.IsTrue(Guid.TryParse(book.BookUuid, out _));
-        // 商品名を検証する
+        // 図書名を検証する
         Assert.AreEqual(title, book.Title);
         // 単価を検証する
         Assert.AreEqual(author, book.Author);
-        // 商品カテゴリを検証する
+        // 図書カテゴリを検証する
         Assert.AreEqual(category, book.Category);
-        // 商品在庫を検証する
+        // 図書在庫を検証する
         Assert.AreEqual(stock, book.BookStock);
     }
 
@@ -76,7 +76,7 @@ public class BookTests
         Assert.AreEqual("UUIDの形式が正しくありません。", ex.Message);
     }
 
-    [TestMethod("書名が空白の場合、DomainExceptionがスローされる")]
+    [TestMethod("図書名が空白の場合、DomainExceptionがスローされる")]
     public void EmptyTitle_ShouldThrowDomainException()
     {
         var category = CreateCategory();
@@ -86,10 +86,10 @@ public class BookTests
             _ = new Book(Guid.NewGuid().ToString(), "", "草間彌生", category, stock);
         });
         // 例外メッセージを検証する
-        Assert.AreEqual("書名は必須です。", ex.Message);
+        Assert.AreEqual("図書名は必須です。", ex.Message);
     }
 
-    [TestMethod("書名が51文字以上の場合、DomainExceptionがスローされる")]
+    [TestMethod("図書名が51文字以上の場合、DomainExceptionがスローされる")]
     public void TitleLongerThan50Chars_ShouldThrowDomainException()
     {
         var title = new string('あ', 51); // 51文字
@@ -100,13 +100,13 @@ public class BookTests
             _ = new Book(Guid.NewGuid().ToString(), title, "草間彌生", category, stock);
         });
         // 例外メッセージを検証する
-        Assert.AreEqual("書名は50文字以内である必要があります。", ex.Message);
+        Assert.AreEqual("図書名は50文字以内である必要があります。", ex.Message);
     }
 
-    [TestMethod("著書名が31文字以上の場合、DomainExceptionがスローされる")]
+    [TestMethod("著者名が31文字以上の場合、DomainExceptionがスローされる")]
     public void  AuthorLongerThan30Chars_ShouldThrowDomainException()
     {
-        var title = "書名";
+        var title = "図書名";
         var author = new string('あ', 31); // 31文字
         var category = CreateCategory();
         var stock = CreateStock();
@@ -115,21 +115,21 @@ public class BookTests
             _ = new Book(Guid.NewGuid().ToString(), title, author, category, stock);
         });
         // 例外メッセージを検証する
-        Assert.AreEqual("著書名は30文字以内である必要があります。", ex.Message);
+        Assert.AreEqual("著者名は30文字以内である必要があります。", ex.Message);
     }
 
-    [TestMethod("有効な書名に変更できる")]
+    [TestMethod("有効な図書名に変更できる")]
     public void Title_WithValidValue_ShouldSucceed()
     {
         // インスタンスを生成する
         var book = new Book("解決ゾロリ", "草間彌生", CreateCategory(), CreateStock());
-        // 商品名を変更する
+        // 図書名を変更する
         book.ChangeTitle("かいけつゾロリ");
         // 変更結果を検証する
         Assert.AreEqual("かいけつゾロリ", book.Title);
     }
 
-    [TestMethod("有効な著書名に変更できる")]
+    [TestMethod("有効な著図書名に変更できる")]
     public void Author_WithValidValue_ShouldSucceed()
     {
         // インスタンスを生成する
@@ -146,9 +146,9 @@ public class BookTests
         // インスタンスを生成する
         var newCategory = CreateCategory("新カテゴリ");
         var book = new Book("本", "草間彌生", CreateCategory(), CreateStock());
-        // 商品カテゴリを変更する
+        // 図書カテゴリを変更する
         book.ChangeCategory(newCategory);
-        // 商品カテゴリを検証する
+        // 図書カテゴリを検証する
         Assert.AreEqual("新カテゴリ", book.Category!.Name);
     }
 
@@ -170,8 +170,8 @@ public class BookTests
     {
         // インスタンスを生成する
         var uuid = Guid.NewGuid().ToString();
-        var b1 = new Book(uuid, "A", "著書名", CreateCategory(), CreateStock());
-        var b2 = new Book(uuid, "B", "著書名", CreateCategory(), CreateStock());
+        var b1 = new Book(uuid, "A", "著者名", CreateCategory(), CreateStock());
+        var b2 = new Book(uuid, "B", "著者名", CreateCategory(), CreateStock());
         // 等価性を検証する
         var result = b1.Equals(b2);
         // 検証結果を評価する

@@ -78,9 +78,9 @@ public class BookEntityAdapterTests
         var entity = await _adapter.ConvertAsync(domain);
         // nullでないことを検証する
         Assert.IsNotNull(entity);
-        // 識別Idが一致することを検証する
+        // 分類識別Idが一致することを検証する
         Assert.AreEqual(uuid, entity.BookUuid);
-        // 書名がぐりとぐらであることを検証する
+        // 図書名がぐりとぐらであることを検証する
         Assert.AreEqual("ぐりとぐら", entity.Title);
         // 著者名が中川李枝子であることを検証する
         Assert.AreEqual("中川李枝子", entity.Author);
@@ -106,9 +106,9 @@ public class BookEntityAdapterTests
         var domain = await _adapter.RestoreAsync(entity);
         // nullでないことを検証する
         Assert.IsNotNull(domain);
-        // 識別Idが一致していることを検証する
+        // 分類識別Idが一致していることを検証する
         Assert.AreEqual(uuid, domain.BookUuid);
-        // 書名がノートであることを検証する
+        // 図書名がノートであることを検証する
         Assert.AreEqual("ぐりとぐら", domain.Title);
         // 著者名が"中川李枝子"であることを検証する
         Assert.AreEqual("中川李枝子", domain.Author);

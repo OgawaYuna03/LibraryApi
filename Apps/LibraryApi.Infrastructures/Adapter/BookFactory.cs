@@ -30,7 +30,7 @@ public class BookFactory
     }
 
     /// <summary>
-    /// 商品、商品カテゴリ、商品在庫の集約関係を構築したEntityを生成して返す
+    /// 図書、図書カテゴリ、図書在庫の集約関係を構築したEntityを生成して返す
     /// </summary>
     /// <param name="domain">ルートドメインオブジェクト:book</param>
     /// <returns>集約関係を構築したbookEntity</returns>
@@ -38,12 +38,12 @@ public class BookFactory
     {
         // bookからbookEntityを生成する
         var entity = await _bookEntityAdapter.ConvertAsync(domain);
-        // 商品カテゴリ、在庫が存在しない場合はリターンする
+        // 図書カテゴリ、在庫が存在しない場合はリターンする
         if (domain.Category is null && domain.BookStock is null)
         {
             return entity;
         }
-        // 商品カテゴリが存在する
+        // 図書カテゴリが存在する
         if (domain.Category != null)
         {
             // BookをBookEntityに変換してプロパティに設定する
@@ -61,7 +61,7 @@ public class BookFactory
     }
 
     /// <summary>
-    /// 商品、商品カテゴリ、商品在庫の集約関係を構築したEntityリストを生成して返す
+    /// 図書、図書カテゴリ、図書在庫の集約関係を構築したEntityリストを生成して返す
     /// </summary>
     /// <param name="domains">ルートドメインオブジェクトのリスト:List<book></param>
     /// <returns>集約関係を構築したbookEntityのリスト</returns>
@@ -86,19 +86,19 @@ public class BookFactory
     {
         // bookEntityからbookを復元する
         var book = await _bookEntityAdapter.RestoreAsync(target);
-        // 商品カテゴリ、商品在庫が存在しない場合はリターンする   
+        // 図書カテゴリ、図書在庫が存在しない場合はリターンする   
         if (target.Category is null && target.BookStock is null)
         {
             return book;
         }
-        // 商品カテゴリが存在する
+        // 図書カテゴリが存在する
         if (target.Category != null)
         {
             // CategoryEntityからCategoryを復元してプロパティに設定する
             book.ChangeCategory(
                 await _categoryEntityAdapter.RestoreAsync(target.Category));
         }
-        // 商品在庫が存在する
+        // 図書在庫が存在する
         if (target.BookStock != null)
         {
             // bookStockEntityからbookStockを復元してプロパティに設定する
@@ -109,7 +109,7 @@ public class BookFactory
     }
 
     /// <summary>
-    /// 商品、商品カテゴリ、商品アジ子の集約関係を構築したEntityリストからドメインオブジェクトのリストを復元する
+    /// 図書、図書カテゴリ、図書アジ子の集約関係を構築したEntityリストからドメインオブジェクトのリストを復元する
     /// </summary>
     /// <param name="targets">List<bookEntity></param>
     /// <returns>book<List></returns>

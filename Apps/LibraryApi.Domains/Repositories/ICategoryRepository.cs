@@ -4,15 +4,15 @@ namespace LibraryApi.Domains.Repositories;
 public interface ICategoryRepository
 {
     /// <summary>
-    /// すべての商品カテゴリを取得する
+    /// すべての図書カテゴリを取得する
     /// </summary>
     /// <returns>ProductCategoryのリスト</returns>
     Task<List<Category>> SelectAllAsync();
 
     /// <summary>
-    /// 指定された商品カテゴリIdの商品カテゴリを取得する
+    /// 指定された図書カテゴリIdの図書カテゴリを取得する
     /// </summary>
-    /// <param name="id">商品カテゴリId</param>
+    /// <param name="id">図書カテゴリId</param>
     /// <returns>ProductCategory または null</returns>
     Task<Category?> SelectByIdAsync(string id);
 }

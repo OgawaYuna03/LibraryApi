@@ -41,4 +41,5 @@ IConverter<Book, BookEntity>, IRestorer<Book, BookEntity>
         var domain = new Book(target.BookUuid, target.Title, target.Author);
         return Task.FromResult(domain);
     }
+    
 }

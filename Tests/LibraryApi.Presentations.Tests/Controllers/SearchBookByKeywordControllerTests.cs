@@ -6,10 +6,11 @@ using LibraryApi.Domains.Models;
 using LibraryApi.Application.Usecases.Products.Interfaces;
 using LibraryApi.Presentation.Configs;
 using LibraryApi.Presentation.Controllers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RestAPI_Exercise.Presentation.Tests.Controllers;
 /// <summary>
-/// ユースケース:[商品をキーワード検索する]を実現するコントローラのテストドライバ
+/// ユースケース:[図書をキーワード検索する]を実現するコントローラのテストドライバ
 /// </summary>
 [TestClass]
 [TestCategory("Controllers")]
@@ -21,7 +22,7 @@ public class SearchProductByKeywordControllerTests
     private static ServiceProvider? _provider;
     // スコープドサービス
     private IServiceScope? _scope;
-    // ユースケース:[商品をキーワード検索する]を実現するインターフェイス
+    // ユースケース:[図書をキーワード検索する]を実現するインターフェイス
     private ISearchBookByKeywordUsecase? _usecase;
     // テストターゲット
     private SearchBookByKeywordController? _controller;
@@ -58,7 +59,7 @@ public class SearchProductByKeywordControllerTests
     {
         // スコープドサービスを取得する
         _scope = _provider!.CreateScope();
-        // [商品をキーワード検索する]を実現インターフェイスを取得する
+        // [図書をキーワード検索する]を実現インターフェイスを取得する
         _usecase = _scope.ServiceProvider.GetRequiredService<ISearchBookByKeywordUsecase>();
         // テストターゲットを生成する
         // services.AddControllers()では、Controllerそのものは登録されないため  
@@ -75,7 +76,8 @@ public class SearchProductByKeywordControllerTests
         _scope!.Dispose();
     }
 
-    [TestMethod("keywordが未入力の場合、BadRequest(400)が返される")]
+    [TestMethod]
+    [Description("keywordが未入力の場合、BadRequest(400)が返される")]
     public async Task Search_ShouldReturnBadRequest_WhenKeywordIsEmpty()
     {
         var result = await _controller!.Search("  ");
@@ -97,7 +99,8 @@ public class SearchProductByKeywordControllerTests
         Assert.AreEqual("検索キーワードを入力してください。", msg);
     }
 
-    [TestMethod("存在するキーワードの場合、ステータス200と商品リストを返す（第1巻 → 4件）")]
+    [TestMethod]
+    [Description("存在するキーワードの場合、ステータス200と図書リストを返す（第1巻 → 4件）")]
     public async Task Search_ShouldReturnOkWithProducts_WhenKeywordExists()
     {
         var result = await _controller!.Search("第1巻");
@@ -120,7 +123,8 @@ public class SearchProductByKeywordControllerTests
         }
     }
 
-    [TestMethod("存在しないキーワードの場合、ステータス200と空配列を返す")]
+    [TestMethod]
+    [Description("存在しないキーワードの場合、ステータス200と空配列を返す")]
     public async Task Search_ShouldReturnOkWithEmptyList_WhenNoMatches()
     {
         var result = await _controller!.Search("第2巻");
@@ -138,7 +142,8 @@ public class SearchProductByKeywordControllerTests
         Assert.AreEqual(0, books!.Count);
     }
 
-    [TestMethod("前後空白がある場合、トリミングされて検索される（\"  第1巻  \" → 3件）")]
+    [TestMethod]
+    [Description("前後空白がある場合、トリミングされて検索される（\"  第1巻  \" → 3件）")]
     public async Task Search_ShouldTrimKeyword_BeforeUsecase()
     {
         var result = await _controller!.Search("  第1巻  ");

@@ -7,7 +7,7 @@ namespace LibraryApi.Presentation.Controllers;
 /// ユースケース:[書籍をキーワード検索する]を実現するコントローラ
 /// </summary>
 [ApiController]
-[Route("library/api/books")]
+[Route("library/api")]
 [SwaggerTag("書籍をキーワード検索API")]
 public class SearchBookByKeywordController : ControllerBase
 {
@@ -15,18 +15,18 @@ public class SearchBookByKeywordController : ControllerBase
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    /// <param name="usecase">ユースケース:[商品をキーワード検索する]を実現するインターフェイス</param>
+    /// <param name="usecase">ユースケース:[図書をキーワード検索する]を実現するインターフェイス</param>
     public SearchBookByKeywordController(ISearchBookByKeywordUsecase usecase)
     {
         _usecase = usecase;
     }
 
     /// <summary>
-    /// キーワードで商品を検索する
+    /// キーワードで図書を検索する
     /// </summary>
     /// <param name="keyword">検索キーワード</param>
-    /// <returns>検索結果の商品一覧</returns>
-    [HttpGet]
+    /// <returns>検索結果の図書一覧</returns>
+    [HttpGet()]
      // [ProducesResponseType]から[SwaggerResponse]に変更する
     [SwaggerResponse(StatusCodes.Status200OK, "検索に成功した場合、書籍リストを返す", typeof(List<Book>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "キーワード未入力など、リクエストが不正な場合")]
@@ -44,7 +44,7 @@ public class SearchBookByKeywordController : ControllerBase
               new{code ="INVALID_KEYWORD",message = "検索キーワードは50文字以内で入力してください。"}  
             );
         }
-        // 商品キーワード検索する
+        // 図書キーワード検索する
         var result = await _usecase.ExecuteAsync(keyword.Trim());
         return Ok(result);
     }

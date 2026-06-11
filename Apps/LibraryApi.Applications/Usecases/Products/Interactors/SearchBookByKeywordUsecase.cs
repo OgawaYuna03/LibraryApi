@@ -4,7 +4,7 @@ using LibraryApi.Domains.Exceptions;
 using LibraryApi.Application.Usecases.Products.Interfaces;
 namespace LibraryApi.Application.Usecases.Products.Interactors;
 /// <summary>
-/// ユースケース:[商品をキーワード検索する]を実現するインターフェイスの実装
+/// ユースケース:[図書をキーワード検索する]を実現するインターフェイスの実装
 /// </summary>
 public class SearchBookByKeywordUsecase : ISearchBookByKeywordUsecase
 {
@@ -12,16 +12,16 @@ public class SearchBookByKeywordUsecase : ISearchBookByKeywordUsecase
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    /// <param name="repository">商品CRUD操作リポジトリ</param>
+    /// <param name="repository">図書CRUD操作リポジトリ</param>
     public SearchBookByKeywordUsecase(IBookRepository repository)
     {
         _repository = repository;
     }
 
     /// <summary>
-    /// 指定されたキーワードで商品を部分一致検索した結果を返す
+    /// 指定されたキーワードで図書を部分一致検索した結果を返す
     /// </summary>
-    /// <param name="keyword">商品キーワード</param>
+    /// <param name="keyword">図書キーワード</param>
     /// <returns>キーワード検索結果</returns>
     /// <exception cref="NotFoundException">該当データが存在しない場合にスローされる</exception>
     public async Task<List<Book>> ExecuteAsync(string keyword)
