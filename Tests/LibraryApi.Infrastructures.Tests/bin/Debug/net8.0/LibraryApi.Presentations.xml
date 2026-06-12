@@ -76,6 +76,18 @@
             <param name="configureLogging"></param>
             <returns></returns>
         </member>
+        <member name="T:LibraryApi.Presentation.Configs.ExceptionHandlingExtensions">
+            <summary>
+            ExceptionHandlingMiddlewareを登録する拡張メソッドクラス
+            </summary>
+        </member>
+        <member name="M:LibraryApi.Presentation.Configs.ExceptionHandlingExtensions.UseExceptionHandling(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            ExceptionHandlingMiddlewareをアプリケーションパイプラインに登録する拡張メソッド
+            </summary>
+            <param name="app">IApplicationBuilderのインスタンス</param>
+            <returns>登録後のIApplicationBuilder</returns>
+        </member>
         <member name="T:LibraryApi.Presentation.Controllers.RegisterBookController">
             <summary>
             ユースケース:[新図書を登録する]を実現するコントローラ
@@ -90,25 +102,16 @@
         </member>
         <member name="M:LibraryApi.Presentation.Controllers.RegisterBookController.GetCategories">
             <summary>
-            分類一覧の取得
+            図書カテゴリ一覧の取得
             </summary>
             <returns></returns>
         </member>
         <member name="M:LibraryApi.Presentation.Controllers.RegisterBookController.GetCategoryById(System.String)">
             <summary>
-            選択された分類識別Idで分類を取得する
+            選択された図書カテゴリIdで図書カテゴリを取得する
             </summary>
-            <param name="categoryId">分類識別Id(UUID)</param>
+            <param name="categoryId">図書カテゴリId(UUID)</param>
             <returns>該当するカテゴリが存在すればOK(200)、存在しなければNotFound(404)</returns>
-        </member>
-        <member name="M:LibraryApi.Presentation.Controllers.RegisterBookController.ValidateBook(System.String)">
-            <summary>
-            図書が既に存在するかを検証する
-            </summary>
-            <param name="bookName">検証対象の図書名</param>
-            <returns>
-            存在しない場合:Ok(200)、存在する場合:Conflict(409) 
-            </returns>
         </member>
         <member name="M:LibraryApi.Presentation.Controllers.RegisterBookController.Register(LibraryApi.Presentation.ViewModels.RegisterBookViewModel)">
             <summary>
@@ -154,15 +157,6 @@
             <param name="bookId">図書Id(UUID)</param>
             <returns>該当する図書が存在すればOK(200)、存在しなければNotFound(404)</returns>
         </member>
-        <member name="M:LibraryApi.Presentation.Controllers.UpdateBookController.ValidateBook(System.String)">
-            <summary>
-            図書が既に存在するかを検証する
-            </summary>
-            <param name="bookName">検証対象の図書名</param>
-            <returns>
-            存在しない場合:Ok(200)、存在する場合:Conflict(409) 
-            </returns>
-        </member>
         <member name="M:LibraryApi.Presentation.Controllers.UpdateBookController.Updated(LibraryApi.Presentation.ViewModels.UpdateBookViewModel)">
             <summary>
             図書を変更する
@@ -178,6 +172,27 @@
         <member name="T:LibraryApi.Presentation.ViewModels.UpdateBookViewModel">
             <summary>
             ユースケース:[図書を変更する]を実現するViewModel
+            </summary>
+        </member>
+        <member name="T:LibraryApi.Presentations.Middlewares.ExceptionHandlingMiddleware">
+            <summary>
+            InternalException及び未対応の例外をハンドリングするミドルウェア
+            - 例外をキャッチし、ログにエラーメッセージとスタックトレースを出力する
+            - クライアントには統一的な JSON レスポンスを返し、内部情報を直接漏らさない
+            </summary>
+        </member>
+        <member name="M:LibraryApi.Presentations.Middlewares.ExceptionHandlingMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILogger{LibraryApi.Presentations.Middlewares.ExceptionHandlingMiddleware})">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="next">次のミドルウェアを実行するためのデリゲート</param>
+            <param name="logger">>ログ出力のためのILoggerインスタンス</param>
+        </member>
+        <member name="M:LibraryApi.Presentations.Middlewares.ExceptionHandlingMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            ミドルウェア本体
+            - try/catch で次の処理をラップし、例外発生時にキャッチする
+            - InternalException とそれ以外の例外を区別して処理する
             </summary>
         </member>
     </members>

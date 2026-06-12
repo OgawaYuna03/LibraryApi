@@ -47,4 +47,10 @@ public interface IBookRepository
     /// <param name="title">図書名</param>
     /// <returns>true:存在する false:存在しない</returns> 
     Task<bool> ExistsByTitleAsync(string title);
+     /// <summary>
+    /// 指定された図書名の存在有無を返す
+    /// </summary>
+    /// <param name="title">図書名</param>
+    /// <returns>true:存在する false:存在しない</returns> 
+    Task<bool> ExistsByIdAsync(string bookId);
 }

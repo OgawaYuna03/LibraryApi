@@ -40,7 +40,7 @@ public class RegisterBookUsecaseTests
         // サービスプロバイダ(DIコンテナ)の生成
         _provider = ApplicationDependencyExtensions.BuildAppProvider(config);
     }
-    
+
     /// <summary>
     /// テストクラスクリーンアップ
     /// </summary>
@@ -61,10 +61,10 @@ public class RegisterBookUsecaseTests
         _scope = _provider!.CreateScope();
         // テストターゲットを取得する
         _uscase =
-        _scope.ServiceProvider.GetRequiredService<IRegisterBookUsecase>(); 
+        _scope.ServiceProvider.GetRequiredService<IRegisterBookUsecase>();
         // 図書リポジトリを取得する
         _bookRepository =
-        _scope.ServiceProvider.GetRequiredService<IBookRepository>();  
+        _scope.ServiceProvider.GetRequiredService<IBookRepository>();
     }
 
     /// <summary>
@@ -104,7 +104,7 @@ public class RegisterBookUsecaseTests
             _testContext?.WriteLine(category.ToString());
         }
     }
-        [TestMethod("存在する図書カテゴリIdで図書カテゴリを取得できる")]
+    [TestMethod("存在する図書カテゴリIdで図書カテゴリを取得できる")]
     public async Task GetCategoryByIdAsync_ShouldReturnCategory_WhenIdExists()
     {
         // 図書カテゴリ雑貨を取得する
@@ -115,31 +115,31 @@ public class RegisterBookUsecaseTests
         Assert.AreEqual("e269c98c-61b7-4ca7-9fae-ecd74234989e", category.CategoryUuid);
         Assert.AreEqual("児童書", category.Name);
     }
-    [TestMethod("存在しない図書カテゴリIdを指定するとNotFoundExceptionがスローされる")]
-public async Task GetCategoryByIdAsync_ShouldThrowNotFoundException_WhenIdDoesNotExist()
-{
-    var ex = await Assert.ThrowsExceptionAsync<NotFoundException>(async () =>
+    [TestMethod("存在しない分類識別Idを指定するとNotFoundExceptionがスローされる")]
+    public async Task GetCategoryByIdAsync_ShouldThrowNotFoundException_WhenIdDoesNotExist()
     {
-        // 存在しない図書カテゴリIdでカテゴリを取得する
-        await _uscase!.GetCategoryByIdAsync("2f5016b6-6f6b-11f0-954a-00155d1bd30a");
-    });
-    Assert.AreEqual("分類識別Id:2f5016b6-6f6b-11f0-954a-00155d1bd30aの分類名は存在しません。", ex.Message);
-}
-[TestMethod("存在しない図書名を指定すると例外はスローされない")]
-public async Task ExistsByTitleAsync_ShouldNotThrow_WhenNameExists()
-{
-    await _uscase!.ExistsByTitleAsync("かいけつゾロリ");
-    Assert.IsTrue(true);
-}
-[TestMethod("存在する図書名を指定するとExistsExceptionがスローされる")]
-public async Task ExistsByTitleAsync_ShouldThrowExistsException_WhenNameDoesNotExist()
-{
-    var ex = await Assert.ThrowsExceptionAsync<ExistsException>(async () =>
+        var ex = await Assert.ThrowsExceptionAsync<NotFoundException>(async () =>
+        {
+            // 存在しない図書カテゴリIdでカテゴリを取得する
+            await _uscase!.GetCategoryByIdAsync("2f5016b6-6f6b-11f0-954a-00155d1bd30a");
+        });
+        Assert.AreEqual("分類識別Id:2f5016b6-6f6b-11f0-954a-00155d1bd30aの分類名は存在しません。", ex.Message);
+    }
+    [TestMethod("存在しない図書名を指定すると例外はスローされない")]
+    public async Task ExistsByTitleAsync_ShouldNotThrow_WhenNameExists()
     {
-        await _uscase!.ExistsByTitleAsync("はらぺこあおむし");
-    });
-    Assert.AreEqual("図書名:はらぺこあおむしは既に存在します。", ex.Message);
-}
+        await _uscase!.ExistsByTitleAsync("かいけつゾロリ");
+        Assert.IsTrue(true);
+    }
+    [TestMethod("存在する図書名を指定するとExistsExceptionがスローされる")]
+    public async Task ExistsByTitleAsync_ShouldThrowExistsException_WhenNameDoesNotExist()
+    {
+        var ex = await Assert.ThrowsExceptionAsync<ExistsException>(async () =>
+        {
+            await _uscase!.ExistsByTitleAsync("はらぺこあおむし");
+        });
+        Assert.AreEqual("図書名:はらぺこあおむしは既に存在します。", ex.Message);
+    }
     [TestMethod("新図書を登録できる")]
     public async Task RegisterTitleAsync_ShouldCreateNewProduct()
     {

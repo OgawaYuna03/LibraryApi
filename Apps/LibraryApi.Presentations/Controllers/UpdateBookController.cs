@@ -11,7 +11,7 @@ namespace LibraryApi.Presentation.Controllers;
 /// ユースケース:[図書を変更する]を実現するコントローラ
 /// </summary>
 [ApiController]
-[Route("library/api/update")]
+[Route("library/api")]
 [SwaggerTag("図書変更API")]
 public class UpdateBookController : ControllerBase
 {
@@ -35,7 +35,7 @@ public class UpdateBookController : ControllerBase
     /// </summary>
     /// <param name="bookId">図書Id(UUID)</param>
     /// <returns>該当する図書が存在すればOK(200)、存在しなければNotFound(404)</returns>
-    [HttpGet("book/{bookId}")]
+    [HttpGet("books/{bookId}")]
     [SwaggerOperation(
         Summary = "図書の取得",
         Description = "指定された図書Id(UUID)で図書を取得する"
@@ -64,7 +64,7 @@ public class UpdateBookController : ControllerBase
     // <returns>
     // 存在しない場合:Ok(200)、存在する場合:Conflict(409) 
     // </returns>
-    /*[HttpGet("validate")]
+    [HttpGet("validate")]
      [SwaggerOperation(
         Summary = "図書名の存在確認",
         Description = "図書名が既に存在するかを検証する"
@@ -93,14 +93,14 @@ public class UpdateBookController : ControllerBase
             { code = "BOOK_ALREADY_EXISTS", message = ex.Message });
         }
     }
-    */
+    
 
     /// <summary>
     /// 図書を変更する
     /// </summary>
     /// <param name="model">図書変更用ViewModel</param>
     /// <returns></returns>
-    [HttpPut]
+    [HttpPut("books/{bookId}")]
     [SwaggerOperation(
         Summary = "図書変更",
         Description = "図書情報を更新します。図書名の重複や存在しない図書Idを受け取った場合はエラーを返す"
@@ -111,6 +111,7 @@ public class UpdateBookController : ControllerBase
     [SwaggerResponse(StatusCodes.Status409Conflict, "図書名が既に存在する場合")]
     public async Task<IActionResult> Updated([FromBody] UpdateBookViewModel model)
     {
+       
         // サーバーサイドバリデーション
         if (!ModelState.IsValid)
         {
@@ -132,6 +133,7 @@ public class UpdateBookController : ControllerBase
         }
         try
         {
+             
             // 図書名の存在有無を調べる
             await _usecase.ExistsByTitleNameAsync(model.Title);
             // UpdateBookViewModelからBookを復元する

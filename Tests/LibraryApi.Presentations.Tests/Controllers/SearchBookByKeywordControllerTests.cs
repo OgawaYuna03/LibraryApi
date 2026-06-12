@@ -8,13 +8,13 @@ using LibraryApi.Presentation.Configs;
 using LibraryApi.Presentation.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace RestAPI_Exercise.Presentation.Tests.Controllers;
+namespace LibraryApi.Presentation.Tests.Controllers;
 /// <summary>
 /// ユースケース:[図書をキーワード検索する]を実現するコントローラのテストドライバ
 /// </summary>
 [TestClass]
 [TestCategory("Controllers")]
-public class SearchProductByKeywordControllerTests
+public class SearchBookByKeywordControllerTests
 {
     // MSTestテスト用ログ出力ハンドル
     private static TestContext? _testContext;

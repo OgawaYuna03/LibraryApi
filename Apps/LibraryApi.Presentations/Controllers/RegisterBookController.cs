@@ -10,7 +10,7 @@ namespace LibraryApi.Presentation.Controllers;
 /// ユースケース:[新図書を登録する]を実現するコントローラ
 /// </summary>
 [ApiController]
-[Route("library/api/register")]
+[Route("library/api")]
 [SwaggerTag("図書登録API")]
 public class RegisterBookController : ControllerBase
 {
@@ -75,39 +75,39 @@ public class RegisterBookController : ControllerBase
     // <returns>
     // 存在しない場合:Ok(200)、存在する場合:Conflict(409) 
     // </returns>
-   /*  // [HttpGet("validate")]
-    / [SwaggerOperation(Summary = "図書名の存在確認",
-    /                   Description = "図書名が既に存在するかを検証する")]
-    /  [SwaggerResponse(StatusCodes.Status400BadRequest, "図書名が未入力の場合")]
-     [SwaggerResponse(StatusCodes.Status409Conflict, "図書名が既に存在する場合")]
-     public async Task<IActionResult> ValidateBook([FromQuery] string bookName)
-     {
-         // 図書名がnullか空白
-         if (string.IsNullOrWhiteSpace(bookName))
-         {
-        return BadRequest(new
-             { code = "INVALID_BOOK_NAME", message = "図書名は必須です。" });
-         }
-         try
-         {
-             // 図書名の存在有無を調べる
-             await _usecase.ExistsByTitleAsync(bookName);
+    // [HttpGet("validate")]
+    [SwaggerOperation(Summary = "図書名の存在確認",
+                         Description = "図書名が既に存在するかを検証する")]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "図書名が未入力の場合")]
+    [SwaggerResponse(StatusCodes.Status409Conflict, "図書名が既に存在する場合")]
+    public async Task<IActionResult> ValidateBook([FromQuery] string bookName)
+    {
+        // 図書名がnullか空白
+        if (string.IsNullOrWhiteSpace(bookName))
+        {
+            return BadRequest(new
+            { code = "INVALID_BOOK_NAME", message = "図書名は必須です。" });
+        }
+        try
+        {
+            // 図書名の存在有無を調べる
+            await _usecase.ExistsByTitleAsync(bookName);
             return Ok(new { exists = false });
-         }
-         catch (ExistsException ex)
+        }
+        catch (ExistsException ex)
         {
             // 図書が既に存在する場合
             return Conflict(new
-           { code = "BOOK_ALREADY_EXISTS", message = ex.Message });
-         }
-     } */
+            { code = "BOOK_ALREADY_EXISTS", message = ex.Message });
+        }
+    }
 
     /// <summary>
     /// 新図書を登録する
     /// </summary>
     /// <param name="model">図書登録用ViewModel</param>
     /// <returns></returns>
-    [HttpPost]
+    [HttpPost("books")]
     [SwaggerOperation(Summary = "図書を登録",
                       Description = "図書情報を受け取り、図書を登録する")]
     [SwaggerResponse(StatusCodes.Status201Created, "登録成功", typeof(Book))]

@@ -205,4 +205,23 @@ public class BookRepository : IBookRepository
             throw new InternalException($"Title:{title}の書籍有無取得時に予期しないエラーが発生しました。", ex);
         }
     }
+     /// <summary>
+    /// 指定された図書名の存在有無を返す
+    /// </summary>
+    /// <param name="Title">図書名</param>
+    /// <returns>true:存在する false:存在しない</returns> 
+    public async Task<bool> ExistsByIdAsync(string id)
+    {
+        try
+        {
+            return await _context.Books
+            .AsNoTracking()
+            .AnyAsync(b => b.BookUuid == id);
+        }
+        catch (Exception ex)
+        {
+            // InternalExceptionにラップしてスローする
+            throw new InternalException($"図書Id:{id}の書籍有無取得時に予期しないエラーが発生しました。", ex);
+        }
+    }
 }

@@ -12,7 +12,6 @@ public class CategoryEntity
     [Key] // 主キーをマッピング
     // 列名と同じ名称のプロパティなので[Column]は使わない
     public int Id { get; set; }
-
     [Required] // NOT NUll
     [StringLength(36)] // データ長は36文字
     [Column("category_uuid")]// マッピングする列名

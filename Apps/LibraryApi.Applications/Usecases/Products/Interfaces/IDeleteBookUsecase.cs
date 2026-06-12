@@ -6,7 +6,9 @@ namespace LibraryApi.Application.Usecases.Products.Interfaces;
 /// </summary>
 public interface IDeleteBookUsecase
 {
-    Task<List<Category>> GetCategoriesAsync();
+   Task DeleteByIdAsync(string id);
+
+   Task ExistsByIdAsync(string id);
 
     
 

@@ -24,7 +24,7 @@ public class BookStockEntity
     public int Stock { get; set; }
 
     [Column("book_id")]// マッピングする列名
-    public int BookId { get; set; }
+   public int BookId { get; set; }
 
     // 逆向きのナビゲーション
     [ForeignKey("BookId")]
