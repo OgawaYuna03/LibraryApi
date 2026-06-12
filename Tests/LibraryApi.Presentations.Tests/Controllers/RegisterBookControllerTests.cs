@@ -147,7 +147,7 @@ public class RegisterBookControllerTests
             , msg);
     }
 
-    [TestMethod("図図書名有無チェック:図図書名が未入力の場合、BadRequest(400)とエラーが返される")]
+    [TestMethod("図書名有無チェック:図書名が未入力の場合、BadRequest(400)とエラーが返される")]
     public async Task ValidateBook_ShouldReturnBadRequest_WhenTitleEmpty()
     {
         var response = await _controller!.ValidateBook("  ");

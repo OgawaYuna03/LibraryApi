@@ -75,9 +75,9 @@ public class RegisterBookController : ControllerBase
     // <returns>
     // 存在しない場合:Ok(200)、存在する場合:Conflict(409) 
     // </returns>
-    // [HttpGet("validate")]
+    [HttpGet("validate")]
     [SwaggerOperation(Summary = "図書名の存在確認",
-                         Description = "図書名が既に存在するかを検証する")]
+                        Description = "図書名が既に存在するかを検証する")]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "図書名が未入力の場合")]
     [SwaggerResponse(StatusCodes.Status409Conflict, "図書名が既に存在する場合")]
     public async Task<IActionResult> ValidateBook([FromQuery] string bookName)
@@ -112,8 +112,7 @@ public class RegisterBookController : ControllerBase
                       Description = "図書情報を受け取り、図書を登録する")]
     [SwaggerResponse(StatusCodes.Status201Created, "登録成功", typeof(Book))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "バリデーションエラーまたは業務ルール違反")]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "分類識別Idが存在しない場合")]
-    [SwaggerResponse(StatusCodes.Status409Conflict, "図書が既に存在する場合")]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "サーバー内部エラー")]
     public async Task<IActionResult> Register(
         RegisterBookViewModel model)
     {

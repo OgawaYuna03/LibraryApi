@@ -7,11 +7,11 @@ namespace LibraryApi.Presentation.ViewModels;
 public class UpdateBookViewModel
 {
     // 図書Id(UUID)
-   [Required(ErrorMessage = "図書Idは必須です。")]
+   /*[Required(ErrorMessage = "図書Idは必須です。")]
     [RegularExpression(
     "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}$",
     ErrorMessage = "図書IdはUUID形式で指定してください。")]
-    public string BookId { get; set; } = string.Empty;
+    public string BookId { get; set; } = string.Empty;*/
     // 図書名
     [Required(ErrorMessage = "図書名は必須です。")]
     [StringLength(50, ErrorMessage = "図書名は{1}文字以内で入力してください。")]

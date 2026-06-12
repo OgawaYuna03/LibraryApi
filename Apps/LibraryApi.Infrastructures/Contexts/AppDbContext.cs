@@ -46,13 +46,13 @@ public class AppDbContext : DbContext
             e.HasOne(b => b.Category)
                 .WithMany(b => b.Books!)
                 .HasForeignKey(b => b.CategoryId)
-                .HasConstraintName("book_ibfk_category")
+                .HasConstraintName("fk_book_category")
                 .OnDelete(DeleteBehavior.Cascade);
             // 図書と図書在庫のカーディナリティ(1:1) 図書削除時に図書在庫も削除
             e.HasOne(b => b.BookStock)
                 .WithOne(s => s.Book!)
                 .HasForeignKey<BookStockEntity>(s => s.BookId)
-                .HasConstraintName("book_stock_ibfk_book")
+                .HasConstraintName("fk_book_stock_book")
                 .OnDelete(DeleteBehavior.Cascade);
             // C#のstring ⇔ PostgreSQLのuuidを自動変換する
             e.Property(b => b.BookUuid).HasMaxLength(36);

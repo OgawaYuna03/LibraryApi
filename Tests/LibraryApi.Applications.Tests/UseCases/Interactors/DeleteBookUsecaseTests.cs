@@ -88,11 +88,11 @@ public class DeleteBookUsecaseTests
     [TestMethod("存在しない図書Idを指定するとNotFoundExceptionがスローされる")]
     public async Task ExistsByIdAsync_ShouldThrowNotFoundException_WhenIdDoesNotExist()
     {
-        var ex = await Assert.ThrowsExceptionAsync<ExistsException>(async () =>
+        var ex = await Assert.ThrowsExceptionAsync<NotFoundException>(async () =>
         {
-            await _usecase!.ExistsByIdAsync("64b25512-6dfc-4034-9372-9030f118bdb9");
+            await _usecase!.ExistsByIdAsync("76b25512-6dfc-4034-9372-9030f118bdb9");
         });
-        Assert.AreEqual("図書Id:64b25512-6dfc-4034-9372-9030f118bdb9は既に存在します。", ex.Message);
+        Assert.AreEqual("図書Id:76b25512-6dfc-4034-9372-9030f118bdb9は既に存在しません。", ex.Message);
     }
     [TestMethod("図書を削除できる")]
     public async Task DeleteByIdAsync_ShouldDeleteBook()

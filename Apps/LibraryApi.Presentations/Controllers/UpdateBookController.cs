@@ -64,8 +64,8 @@ public class UpdateBookController : ControllerBase
     // <returns>
     // 存在しない場合:Ok(200)、存在する場合:Conflict(409) 
     // </returns>
-    [HttpGet("validate")]
-     [SwaggerOperation(
+    [HttpGet("books/validate")]
+    [SwaggerOperation(
         Summary = "図書名の存在確認",
         Description = "図書名が既に存在するかを検証する"
     )]
@@ -93,12 +93,13 @@ public class UpdateBookController : ControllerBase
             { code = "BOOK_ALREADY_EXISTS", message = ex.Message });
         }
     }
-    
+
 
     /// <summary>
     /// 図書を変更する
     /// </summary>
     /// <param name="model">図書変更用ViewModel</param>
+    ///  /// <param name="bookId">図書変更用ViewModel</param>
     /// <returns></returns>
     [HttpPut("books/{bookId}")]
     [SwaggerOperation(
@@ -109,9 +110,9 @@ public class UpdateBookController : ControllerBase
     [SwaggerResponse(StatusCodes.Status400BadRequest, "バリデーションエラーまたは業務ルール違反")]
     [SwaggerResponse(StatusCodes.Status404NotFound, "指定された図書Idが存在しない場合")]
     [SwaggerResponse(StatusCodes.Status409Conflict, "図書名が既に存在する場合")]
-    public async Task<IActionResult> Updated([FromBody] UpdateBookViewModel model)
+    public async Task<IActionResult> Updated([FromRoute] string bookId, [FromBody] UpdateBookViewModel model)
     {
-       
+
         // サーバーサイドバリデーション
         if (!ModelState.IsValid)
         {
@@ -133,11 +134,11 @@ public class UpdateBookController : ControllerBase
         }
         try
         {
-             
+
             // 図書名の存在有無を調べる
             await _usecase.ExistsByTitleNameAsync(model.Title);
             // UpdateBookViewModelからBookを復元する
-            var book = await _adapter.RestoreAsync(model);
+            var book = await _adapter.RestoreAsync(bookId, model);
             // 図書を変更する
             await _usecase.UpdateBookAsync(book);
 
